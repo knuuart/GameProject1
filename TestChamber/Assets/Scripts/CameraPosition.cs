@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[ExecuteInEditMode]
 public class CameraPosition : MonoBehaviour {
     public GameObject playerCamera, portal, otherPortal;
     public bool printteri;
@@ -17,11 +18,11 @@ public class CameraPosition : MonoBehaviour {
         var otherPortalPos = otherPortal.transform.position;
         var playerCameraPos = playerCamera.transform.position;
 
-        var playeroffsetfromportal = portalPos - playerCameraPos;
-        transform.position = otherPortalPos + playeroffsetfromportal;
+        var playerOffsetFromPortal = portalPos - playerCameraPos;
+        transform.position = otherPortalPos + playerOffsetFromPortal;
 
-        //var playerOffsetFromOtherPortal = otherPortalPos + playerCameraPos;
-        //transform.position = portalPos + playerOffsetFromOtherPortal * -1;
+//		var playerOffsetFromOtherPortal = otherPortalPos - playerCameraPos;
+//		transform.position = portalPos + playerOffsetFromOtherPortal;
 
 
         //if (printteri) {
