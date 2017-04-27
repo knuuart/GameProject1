@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[ExecuteInEditMode]
+//[ExecuteInEditMode]
 public class CameraPosition : MonoBehaviour {
     public GameObject playerCamera, portal, otherPortal;
     public bool printteri;
