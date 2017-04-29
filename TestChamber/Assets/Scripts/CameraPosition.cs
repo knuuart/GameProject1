@@ -5,32 +5,54 @@ using UnityEngine;
 //[ExecuteInEditMode]
 public class CameraPosition : MonoBehaviour {
     public GameObject playerCamera, portal, otherPortal;
-    public bool printteri;
-	// Use this for initialization
-	void Start () {
+    Vector3 offset, startPosition, newPosition;
+    bool parallel, facing, angled;
+
+
+
+    // Try setting camera to LookAt() middle of portal, but move around slightly depending on playerposition
+
+    
+    void Start () {
 
     }
-
-    // Update is called once per frame
+    
     void Update () {
-        // CopyPaste coding didn't work WutFace
-        var portalPos = portal.transform.position;
-        var otherPortalPos = otherPortal.transform.position;
-        var playerCameraPos = playerCamera.transform.position;
+        //CheckPortalAngles();
 
-        var playerOffsetFromPortal = portalPos - playerCameraPos;
-        transform.position = otherPortalPos + playerOffsetFromPortal;
-
-//		var playerOffsetFromOtherPortal = otherPortalPos - playerCameraPos;
-//		transform.position = portalPos + playerOffsetFromOtherPortal;
+        //offset = otherPortal.transform.position - playerCamera.transform.position;
+        //newPosition = new Vector3((startPosition.x + offset.x * -1f) , (startPosition.y + offset.y * -1f), startPosition.z);
+        gameObject.transform.LookAt(otherPortal.transform.position);
+        //transform.position = newPosition;
 
 
-        //if (printteri) {
-        //    print(playerOffsetFromPortal);
-        //}
-        //var angleDifferenceBetweenPortalRotations = Quaternion.Angle(portal.transform.rotation, otherPortal.transform.rotation);
-        //var portalRotationalDifference = Quaternion.AngleAxis(angleDifferenceBetweenPortalRotations, Vector3.up);
-        //var newFacing = portalRotationalDifference * playerCamera.transform.forward;
-        //transform.rotation = Quaternion.LookRotation(newFacing, Vector3.up);
+
+        // TÄMÄ NYT VISSIIN TOIMII KU PORTAALIT ON VASTAKKAIN, TÄYTYY MUUTTAA LASKUJA PORTAALIEN KULMISTA RIIPPUEN
+
+
+    }
+    //private void LateUpdate() {
+    //    if (facing) {
+    //        PortalsFacing();
+    //    }
+    //}
+    void CheckPortalAngles() {
+        if (portal.transform.rotation.y - otherPortal.transform.rotation.y == 180) {
+            facing = true;
+        } else if (portal.transform.rotation.y - otherPortal.transform.rotation.y == 90) {
+            angled = true;
+        } else if (portal.transform.rotation.y - otherPortal.transform.rotation.y == 0) {
+            parallel = true;
+        } else {
+            facing = false;
+            angled = false;
+            parallel = false;
+        }
+    }
+    void PortalsFacing() {
+        offset = otherPortal.transform.position - playerCamera.transform.position;
+        newPosition = new Vector3((startPosition.x + offset.x) * -1, (startPosition.y + offset.y) * -1, startPosition.z);
+        gameObject.transform.LookAt(otherPortal.transform.position);
+        transform.position = newPosition;
     }
 }
