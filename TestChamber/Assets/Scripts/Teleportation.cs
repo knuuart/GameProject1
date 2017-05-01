@@ -33,7 +33,7 @@ public class Teleportation : MonoBehaviour {
 
 	}
     private void OnTriggerExit(Collider other) {
-
+        
     }
 
     void Update () {
