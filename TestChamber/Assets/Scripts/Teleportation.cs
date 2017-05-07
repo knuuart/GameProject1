@@ -22,7 +22,7 @@ public class Teleportation : MonoBehaviour {
         if (usedPortal == false && otherPortal.GetComponent<Teleportation>().usedPortal == false) {
             go.transform.Rotate(0f, rotationAngle, 0f);
             go.transform.position = otherPortal.transform.position;
-            
+
             usedPortal = true;
 
         }
@@ -55,7 +55,7 @@ public class Teleportation : MonoBehaviour {
         }
         
         
-        print(portalAnglesY);
+        //print(portalAnglesY);
 	}
     void ResetPortal() {
         if (usedPortal || otherPortal.GetComponent<Teleportation>().usedPortal) {
