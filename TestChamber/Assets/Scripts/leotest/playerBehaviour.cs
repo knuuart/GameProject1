@@ -5,13 +5,15 @@ using UnityEngine;
 public class playerBehaviour : MonoBehaviour {
 
     public float movePower;
+    public float sens;
     float movX;
     float movY;
     float lookX;
     float lookY;
     public Rigidbody rb;
     Vector3 inputDirection;
-    public Camera cam; 
+    public Camera cam;
+    float camHoriz;
 
     private void Update() {
         //Record input
@@ -22,10 +24,14 @@ public class playerBehaviour : MonoBehaviour {
 
         inputDirection = new Vector3(movX, 0, movY);
 
+        print(cam.transform.forward);
+        Debug.DrawRay(Vector3.zero, Vector3.zero - cam.transform.forward);
+        float camHoriz = cam.transform.localRotation.x;
     }
 
     private void FixedUpdate() {
-
+        rb.velocity = inputDirection.normalized * movePower;
+        camHoriz = cam.transform.localRotation.x * sens * lookY;
     }
 
     
