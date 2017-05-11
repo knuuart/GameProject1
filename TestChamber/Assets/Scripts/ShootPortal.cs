@@ -23,6 +23,7 @@ public class ShootPortal : MonoBehaviour {
     }
 
     void CreatePortal(GameObject portal) {
+		portal.SetActive(true);
         int x = Screen.width / 2;
         int y = Screen.height / 2;
         
@@ -30,7 +31,7 @@ public class ShootPortal : MonoBehaviour {
         RaycastHit hit;
         if(Physics.Raycast(ray, out hit)) {
             Quaternion hitObjectRotation = Quaternion.LookRotation(hit.normal * -1);
-            portal.transform.position = hit.point; //- new Vector3(0.01f, 0.01f, 0.01f);
+            portal.transform.position = hit.point;
             portal.transform.rotation = hitObjectRotation;
         }
     }

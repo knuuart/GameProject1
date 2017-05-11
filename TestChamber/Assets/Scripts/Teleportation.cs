@@ -5,7 +5,6 @@ using UnityEngine;
 [ExecuteInEditMode]
 public class Teleportation : MonoBehaviour {
 
-    //Figure out how to preserve momentum you dumdum
     //stopping continous back and forth teleporting should be in other gameobjects/scripts so cubes/player won't block eachother from porting
 
     public GameObject otherPortal, portal;
