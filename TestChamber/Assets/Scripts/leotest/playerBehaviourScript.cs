@@ -7,6 +7,10 @@ public class playerBehaviourScript : MonoBehaviour {
     public float movePower;
     public float moveMax;
     public float mouseSensitivity;
+    private float mouseSensitivityY;
+    public bool mInvert;
+    public float maxAngle;
+    public float minAngle;
 
     public Camera cam;
     Rigidbody rb;
@@ -14,6 +18,11 @@ public class playerBehaviourScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         rb = GetComponent<Rigidbody>();
+
+        mouseSensitivityY = mouseSensitivity;
+        if (mInvert) {
+            mouseSensitivityY = mouseSensitivityY * -1;
+        }
 	}
 	
 	// Update is called once per frame
@@ -31,6 +40,9 @@ public class playerBehaviourScript : MonoBehaviour {
         var aa = (transform.right * MoveX +transform.forward * MoveZ).normalized * movePower * Time.deltaTime;
 
         //rb.AddForce(aa, ForceMode.VelocityChange);
+
+        transform.Rotate(0, MouseX * mouseSensitivity, 0);
+        cam.transform.Rotate(MouseY * mouseSensitivityY, 0, 0);
 
         rb.velocity = new Vector3(aa.x, rb.velocity.y, aa.z);
 
