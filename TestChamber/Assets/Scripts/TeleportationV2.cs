@@ -8,6 +8,7 @@ public class TeleportationV2 : MonoBehaviour {
     Quaternion blueNormal, orangeNormal;
     ShootPortal sp;
     bool hasPorted;
+    Collider objectCollider, behindOrange, behindBlue;
 
     private void OnTriggerEnter(Collider other) {
         if (other.tag == "BluePortal" && hasPorted == false) {
@@ -21,12 +22,14 @@ public class TeleportationV2 : MonoBehaviour {
             hasPorted = true;
             StartCoroutine("Reset");
         }
-        //if(other.tag == "BlueMesh") {
-        //    Physics.IgnoreCollision(gameObject.GetComponent<Collider>(), sp.behindBlue);
+        //if (other.tag == "BlueMesh") {
+        //    Physics.IgnoreCollision(objectCollider, sp.behindBlue);
         //}
         //if (other.tag == "OrangeMesh") {
-        //    Physics.IgnoreCollision(gameObject.GetComponent<Collider>(), sp.behindOrange);
+        //    Physics.IgnoreCollision(objectCollider, sp.behindOrange);
         //}
+        //Physics.IgnoreCollision(objectCollider, sp.behindBlue.GetComponent<Collider>());
+        //Physics.IgnoreCollision(objectCollider, sp.behindOrange.GetComponent<Collider>());
 
 
         Physics.IgnoreLayerCollision(9, 8);
@@ -36,14 +39,16 @@ public class TeleportationV2 : MonoBehaviour {
     }
 
     void Start () {
+        objectCollider = gameObject.GetComponent<Collider>();
         
-	}
+
+    }
     private void OnTriggerExit(Collider other) {
         //if (other.tag == "BlueMesh") {
-        //    Physics.IgnoreCollision(gameObject.GetComponent<Collider>(), sp.behindBlue, false);
+        //    Physics.IgnoreCollision(objectCollider, behindBlue, false);
         //}
         //if (other.tag == "OrangeMesh") {
-        //    Physics.IgnoreCollision(gameObject.GetComponent<Collider>(), sp.behindOrange, false);
+        //    Physics.IgnoreCollision(objectCollider, behindOrange, false);
         //}
 
         Physics.IgnoreLayerCollision(8, 9, false);
@@ -51,16 +56,11 @@ public class TeleportationV2 : MonoBehaviour {
     }
 
     void Update () {
-        //if(hasPorted == true) {
-        //    StartCoroutine("Reset");
-        //}
-        //if (Input.GetKeyDown(KeyCode.F)) {
-        //    Debug.DrawRay(gameObject.transform.position, sp.behindBlue.transform.position);
-
-        //}
+        bluePortal = GameObject.FindGameObjectWithTag("Blue");
+        orangePortal = GameObject.FindGameObjectWithTag("Orange");
     }
     IEnumerator Reset() {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.1f);
         hasPorted = false;
     }
 }
