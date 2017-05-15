@@ -5,10 +5,10 @@ using UnityEngine;
 public class TeleportationV2 : MonoBehaviour {
 
 	public GameObject bluePortal, orangePortal;
-    Quaternion blueNormal, orangeNormal;
     ShootPortal sp;
     bool hasPorted;
-    Collider objectCollider, behindOrange, behindBlue;
+    Collider objectCollider;
+	Rigidbody rb;
 
     private void OnTriggerEnter(Collider other) {
         if (other.tag == "BluePortal" && hasPorted == false) {
@@ -22,36 +22,40 @@ public class TeleportationV2 : MonoBehaviour {
             hasPorted = true;
             StartCoroutine("Reset");
         }
-        //if (other.tag == "BlueMesh") {
-        //    Physics.IgnoreCollision(objectCollider, sp.behindBlue);
-        //}
-        //if (other.tag == "OrangeMesh") {
-        //    Physics.IgnoreCollision(objectCollider, sp.behindOrange);
-        //}
-        //Physics.IgnoreCollision(objectCollider, sp.behindBlue.GetComponent<Collider>());
-        //Physics.IgnoreCollision(objectCollider, sp.behindOrange.GetComponent<Collider>());
+        if (other.tag == "BlueMesh") {
+			Physics.IgnoreCollision(objectCollider, sp.behindBlue.GetComponent<Collider>());
 
-
-        Physics.IgnoreLayerCollision(9, 8);
+        }
+        if (other.tag == "OrangeMesh") {
+			Physics.IgnoreCollision(objectCollider, sp.behindOrange.GetComponent<Collider>());
+        }
     }
 
     private void OnTriggerStay(Collider other) {
+		if (other.tag == "BlueMesh") {
+			Vector3 surfacePoint = other.ClosestPoint (transform.position);
+			Ray ray;
+			RaycastHit hit;
+			Physics.Raycast (transform.position, surfacePoint, out hit);
+			print (hit.distance);
+			Debug.DrawRay (transform.position, surfacePoint, Color.black);
+		}
     }
 
     void Start () {
         objectCollider = gameObject.GetComponent<Collider>();
+		sp = Camera.main.GetComponent<ShootPortal> ();
+		rb = gameObject.GetComponent<Rigidbody> ();
         
 
     }
     private void OnTriggerExit(Collider other) {
-        //if (other.tag == "BlueMesh") {
-        //    Physics.IgnoreCollision(objectCollider, behindBlue, false);
-        //}
-        //if (other.tag == "OrangeMesh") {
-        //    Physics.IgnoreCollision(objectCollider, behindOrange, false);
-        //}
-
-        Physics.IgnoreLayerCollision(8, 9, false);
+        if (other.tag == "BlueMesh") {
+			Physics.IgnoreCollision(objectCollider, sp.behindBlue.GetComponent<Collider>(), false);
+        }
+        if (other.tag == "OrangeMesh") {
+			Physics.IgnoreCollision(objectCollider, sp.behindOrange.GetComponent<Collider>(), false);
+        }
 
     }
 
