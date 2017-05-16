@@ -1,10 +1,14 @@
 fileFormatVersion: 2
 guid: fb0ff8c634aab064da62e0f8044d1e1d
-timeCreated: 1493388917
-licenseType: Free
+timeCreated: 1494935371
+licenseType: Pro
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - bluePortal: {instanceID: 0}
+  - orangePortal: {instanceID: 0}
+  - blueExit: {instanceID: 0}
+  - orangeExit: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

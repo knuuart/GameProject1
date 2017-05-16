@@ -9,19 +9,21 @@ public class TeleportationV2 : MonoBehaviour {
     bool hasPorted;
     Collider objectCollider;
 	Rigidbody rb;
+	public Transform blueExit, orangeExit;
+	ExtendedFlycam efc;
 
     private void OnTriggerEnter(Collider other) {
-        if (other.tag == "BluePortal" && hasPorted == false) {
-            transform.position = orangePortal.transform.position;
-            hasPorted = true;
-            StartCoroutine("Reset");
-
-        }
-        if (other.tag == "OrangePortal" && hasPorted == false) {
-            transform.position = bluePortal.transform.position;
-            hasPorted = true;
-            StartCoroutine("Reset");
-        }
+//        if (other.tag == "BluePortal" && hasPorted == false) {
+//            transform.position = orangePortal.transform.position;
+//            hasPorted = true;
+//            StartCoroutine("Reset");
+//
+//        }
+//        if (other.tag == "OrangePortal" && hasPorted == false) {
+//            transform.position = bluePortal.transform.position;
+//            hasPorted = true;
+//            StartCoroutine("Reset");
+//        }
         if (other.tag == "BlueMesh") {
 			Physics.IgnoreCollision(objectCollider, sp.behindBlue.GetComponent<Collider>());
 
@@ -32,21 +34,20 @@ public class TeleportationV2 : MonoBehaviour {
     }
 
     private void OnTriggerStay(Collider other) {
+
 		if (other.tag == "BlueMesh") {
-			Vector3 surfacePoint = other.ClosestPoint (transform.position);
-			Ray ray;
-			RaycastHit hit;
-			Physics.Raycast (transform.position, surfacePoint, out hit);
-			print (hit.distance);
-			Debug.DrawRay (transform.position, surfacePoint, Color.black);
+			PortalCollision (other, bluePortal.transform, orangePortal.transform);
+		}
+		if (other.tag == "OrangeMesh") {
+			PortalCollision (other, orangePortal.transform, bluePortal.transform);
 		}
     }
 
     void Start () {
         objectCollider = gameObject.GetComponent<Collider>();
-		sp = Camera.main.GetComponent<ShootPortal> ();
+		sp = GetComponent<ShootPortal> ();
 		rb = gameObject.GetComponent<Rigidbody> ();
-        
+		efc = GetComponent<ExtendedFlycam> ();
 
     }
     private void OnTriggerExit(Collider other) {
@@ -67,4 +68,27 @@ public class TeleportationV2 : MonoBehaviour {
         yield return new WaitForSeconds(0.1f);
         hasPorted = false;
     }
+	void PortalCollision(Collider other, Transform portal1, Transform portal2){
+		Vector3 surfacePoint = other.ClosestPoint (transform.position);
+		float distanceFromSurface = Vector3.Distance(surfacePoint, transform.position);
+
+
+		if (distanceFromSurface <= 0.05f) {
+			// Muutetaan nykyinen positio sinisen portaalin locaaliin avaruuteen(inverseTransformPoint)
+			//localspacepoint muutetaan worldspacepoint oranssin portaalin kautta(transformPoint)
+			Vector3 local = portal1.InverseTransformPoint(transform.position);
+			local = Quaternion.AngleAxis (180.0f, Vector3.up) * local;
+			local.z = 0.5f;
+			Vector3 newPos = portal2.TransformPoint(local);
+			transform.position = newPos;
+
+
+			//Käännetään matriiseilla, voisi myös käyttää unityn omia funktioita(transform.transformDirection, transform.inverseTransformDirection)
+			Matrix4x4 targetFlipRotation = Matrix4x4.TRS(Vector3.zero, Quaternion.AngleAxis(180.0f, Vector3.up), Vector3.one);
+			Matrix4x4 inversionMatrix = targetFlipRotation * portal1.worldToLocalMatrix;
+
+			Quaternion newRotation = Portal.QuaternionFromMatrix(inversionMatrix) * efc.cameraOffset.rotation;
+			efc.cameraOffset.rotation = portal2.rotation * newRotation;
+		}
+	}
 }
