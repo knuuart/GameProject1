@@ -9,7 +9,7 @@ public class EnergyBall : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         rb = gameObject.GetComponent<Rigidbody>();
-        rb.AddForce(Vector3.forward * 300, ForceMode.Force);
+        rb.AddForce(Vector3.forward, ForceMode.Impulse);
 
     }
 
