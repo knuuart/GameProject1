@@ -31,6 +31,9 @@ public class playerBehaviourScript : MonoBehaviour {
 	}
 
     private void FixedUpdate() {
+
+        if (mInvert) { mouseSensitivityY = mouseSensitivityY * -1; }
+
         float MoveX = Input.GetAxis("Horizontal");
         float MoveZ = Input.GetAxis("Vertical");
 
@@ -42,6 +45,13 @@ public class playerBehaviourScript : MonoBehaviour {
         //rb.AddForce(aa, ForceMode.VelocityChange);
 
         transform.Rotate(0, MouseX * mouseSensitivity, 0);
+
+        Vector3 Look = new Vector3 (cam.transform.rotation.x, 0f, 0f);
+        Mathf.Clamp(Look.x, minAngle, maxAngle);
+        Quaternion qLook = cam.transform.localRotation;
+        qLook.eulerAngles = Look;
+        cam.transform.localRotation = qLook;
+
         cam.transform.Rotate(MouseY * mouseSensitivityY, 0, 0);
 
         rb.velocity = new Vector3(aa.x, rb.velocity.y, aa.z);
