@@ -13,23 +13,26 @@ public class TeleportationV2 : MonoBehaviour {
 	ExtendedFlycam efc;
 
     private void OnTriggerEnter(Collider other) {
-        if (other.tag == "BlueTrigger") {
-            Physics.IgnoreCollision(objectCollider, sp.behindBlue.GetComponent<Collider>());
+        if (sp.behindBlue != null && sp.behindOrange != null) {
 
-        }
-        if (other.tag == "OrangeTrigger") {
-            Physics.IgnoreCollision(objectCollider, sp.behindOrange.GetComponent<Collider>());
+            if (other.tag == "BlueTrigger") {
+                Physics.IgnoreCollision(objectCollider, sp.behindBlue.GetComponent<Collider>());
+            }
+            if (other.tag == "OrangeTrigger") {
+                Physics.IgnoreCollision(objectCollider, sp.behindOrange.GetComponent<Collider>());
+            }
         }
     }
 
     private void OnTriggerStay(Collider other) {
-
-		if (other.tag == "BlueMesh") {
-			PortalCollision (other, bluePortal.transform, orangePortal.transform);
-		}
-		if (other.tag == "OrangeMesh") {
-			PortalCollision (other, orangePortal.transform, bluePortal.transform);
-		}
+        if (sp.behindBlue != null && sp.behindOrange != null) {
+            if (other.tag == "BlueMesh") {
+                PortalCollision(other, bluePortal.transform, orangePortal.transform);
+            }
+            if (other.tag == "OrangeMesh") {
+                PortalCollision(other, orangePortal.transform, bluePortal.transform);
+            }
+        }
 //		if (other.tag == "BlueTrigger") {
 //			Physics.IgnoreCollision (objectCollider, sp.behindBlue.GetComponent<Collider> ());
 //		} else {
@@ -50,11 +53,13 @@ public class TeleportationV2 : MonoBehaviour {
 
     }
     private void OnTriggerExit(Collider other) {
-        if (other.tag == "BlueTrigger") {
-            Physics.IgnoreCollision(objectCollider, sp.behindBlue.GetComponent<Collider>(), false);
-        }
-        if (other.tag == "OrangeTrigger") {
-            Physics.IgnoreCollision(objectCollider, sp.behindOrange.GetComponent<Collider>(), false);
+        if (sp.behindBlue != null && sp.behindOrange != null) {
+            if (other.tag == "BlueTrigger") {
+                Physics.IgnoreCollision(objectCollider, sp.behindBlue.GetComponent<Collider>(), false);
+            }
+            if (other.tag == "OrangeTrigger") {
+                Physics.IgnoreCollision(objectCollider, sp.behindOrange.GetComponent<Collider>(), false);
+            }
         }
 
     }
