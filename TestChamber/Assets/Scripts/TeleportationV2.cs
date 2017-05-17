@@ -30,6 +30,16 @@ public class TeleportationV2 : MonoBehaviour {
 		if (other.tag == "OrangeMesh") {
 			PortalCollision (other, orangePortal.transform, bluePortal.transform);
 		}
+//		if (other.tag == "BlueTrigger") {
+//			Physics.IgnoreCollision (objectCollider, sp.behindBlue.GetComponent<Collider> ());
+//		} else {
+//			Physics.IgnoreCollision (objectCollider, sp.behindBlue.GetComponent<Collider> (), false);
+//		}
+//		if (other.tag == "OrangeTrigger") {
+//			Physics.IgnoreCollision(objectCollider, sp.behindOrange.GetComponent<Collider>());
+//		} else {
+//			Physics.IgnoreCollision(objectCollider, sp.behindOrange.GetComponent<Collider>(), false);
+//		}
     }
 
     void Start () {
