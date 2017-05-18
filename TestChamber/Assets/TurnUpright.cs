@@ -7,13 +7,16 @@ public class TurnUpright : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
-		startRotation = new Vector3(transform.rotation.x, 0 , transform.rotation.y);
+        startRotation = new Vector3(transform.rotation.x, transform.rotation.y, transform.rotation.z);
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		currentRotation = new Vector3(transform.rotation.x, 0 , transform.rotation.y);
-		Vector3 difference = currentRotation - startRotation;
-		transform.Rotate ((difference) * Time.deltaTime * 25);
-	}
+        //if(transform.rotation != Quaternion.identity) {
+        //    transform.rotation = Quaternion.
+        //}
+        //currentRotation = new Vector3(transform.rotation.x, 0, transform.rotation.z);
+        //Vector3 difference = startRotation - currentRotation;
+        //transform.Rotate((difference) * Time.deltaTime * 25);
+    }
 }

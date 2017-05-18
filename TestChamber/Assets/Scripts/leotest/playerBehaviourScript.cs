@@ -13,6 +13,8 @@ public class playerBehaviourScript : MonoBehaviour {
     public float minY = -60f;
     //public float maxX = Mathf.Infinity;
     //public float minX = Mathf.Infinity;
+    public Transform cameraOffset, cameraTransform;
+
 
 
     public float RotX;
@@ -29,12 +31,16 @@ public class playerBehaviourScript : MonoBehaviour {
         if (mInvert) {
             mouseSensitivityY = mouseSensitivityY * -1;
         }
-	}
+        Cursor.lockState = CursorLockMode.Locked;
+    }
 	
 	
 	void Update () {
-		
-	}
+        if (Input.GetKeyDown(KeyCode.End)) {
+            Cursor.lockState = Cursor.lockState == CursorLockMode.Locked ? CursorLockMode.None : CursorLockMode.Locked;
+        }
+
+    }
 
     private void FixedUpdate() {
 

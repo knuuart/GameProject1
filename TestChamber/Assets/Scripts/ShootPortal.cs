@@ -7,6 +7,8 @@ public class ShootPortal : MonoBehaviour {
     public GameObject orangePortal, bluePortal;
     public Quaternion orangeRotation, blueRotation;
     public GameObject behindBlue, behindOrange;
+    float cameraY;
+    public Transform playerCam;
 
     // Use this for initialization
     void Start () {
@@ -21,6 +23,8 @@ public class ShootPortal : MonoBehaviour {
         if (Input.GetMouseButtonDown(1)) {
             CreatePortal(orangePortal);
         }
+        cameraY = playerCam.rotation.y * 180;
+        //print(cameraY);
     }
 
     public void CreatePortal(GameObject portal) {
@@ -31,16 +35,20 @@ public class ShootPortal : MonoBehaviour {
         Ray ray = Camera.main.ScreenPointToRay(new Vector3(x, y));
         RaycastHit hit;
         if(Physics.Raycast(ray, out hit) && !hit.rigidbody) {
-            Quaternion hitObjectRotation = Quaternion.LookRotation(hit.normal);
-            portal.transform.position = hit.point;
-            portal.transform.rotation = hitObjectRotation;
+            if (hit.collider.tag == "Floor") {
+                Quaternion hitObjectRotation = Quaternion.LookRotation(hit.normal);
+                portal.transform.position = hit.point;
+                portal.transform.rotation = hitObjectRotation;
+                // somehow rotate portal here 
+            } else {
+                Quaternion hitObjectRotation = Quaternion.LookRotation(hit.normal);
+                portal.transform.position = hit.point;
+                portal.transform.rotation = hitObjectRotation;
+            }
             if (portal == bluePortal) {
-                blueRotation = hitObjectRotation;
                 behindBlue = hit.collider.gameObject;
-
             }
             if (portal == orangePortal) {
-                orangeRotation = hitObjectRotation;
                 behindOrange = hit.collider.gameObject;
             }
         }

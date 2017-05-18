@@ -13,15 +13,15 @@ public class TeleportationV2 : MonoBehaviour {
 	ExtendedFlycam efc;
 
     private void OnTriggerEnter(Collider other) {
-        if (sp.behindBlue != null && sp.behindOrange != null) {
+        //if (sp.behindBlue != null && sp.behindOrange != null) {
 
-            if (other.tag == "BlueTrigger") {
-                Physics.IgnoreCollision(objectCollider, sp.behindBlue.GetComponent<Collider>());
-            }
-            if (other.tag == "OrangeTrigger") {
-                Physics.IgnoreCollision(objectCollider, sp.behindOrange.GetComponent<Collider>());
-            }
-        }
+        //    if (other.tag == "BlueTrigger") {
+        //        Physics.IgnoreCollision(objectCollider, sp.behindBlue.GetComponent<Collider>());
+        //    }
+        //    if (other.tag == "OrangeTrigger") {
+        //        Physics.IgnoreCollision(objectCollider, sp.behindOrange.GetComponent<Collider>());
+        //    }
+        //}
     }
 
     private void OnTriggerStay(Collider other) {
@@ -33,23 +33,32 @@ public class TeleportationV2 : MonoBehaviour {
                 PortalCollision(other, orangePortal.transform, bluePortal.transform);
             }
         }
-//		if (other.tag == "BlueTrigger") {
-//			Physics.IgnoreCollision (objectCollider, sp.behindBlue.GetComponent<Collider> ());
-//		} else {
-//			Physics.IgnoreCollision (objectCollider, sp.behindBlue.GetComponent<Collider> (), false);
-//		}
-//		if (other.tag == "OrangeTrigger") {
-//			Physics.IgnoreCollision(objectCollider, sp.behindOrange.GetComponent<Collider>());
-//		} else {
-//			Physics.IgnoreCollision(objectCollider, sp.behindOrange.GetComponent<Collider>(), false);
-//		}
+        if (sp.behindBlue != null && sp.behindOrange != null) {
+
+            if (other.tag == "BlueTrigger") {
+                Physics.IgnoreCollision(objectCollider, sp.behindBlue.GetComponent<Collider>());
+            }
+            if (other.tag == "OrangeTrigger") {
+                Physics.IgnoreCollision(objectCollider, sp.behindOrange.GetComponent<Collider>());
+            }
+        }
+        //		if (other.tag == "BlueTrigger") {
+        //			Physics.IgnoreCollision (objectCollider, sp.behindBlue.GetComponent<Collider> ());
+        //		} else {
+        //			Physics.IgnoreCollision (objectCollider, sp.behindBlue.GetComponent<Collider> (), false);
+        //		}
+        //		if (other.tag == "OrangeTrigger") {
+        //			Physics.IgnoreCollision(objectCollider, sp.behindOrange.GetComponent<Collider>());
+        //		} else {
+        //			Physics.IgnoreCollision(objectCollider, sp.behindOrange.GetComponent<Collider>(), false);
+        //		}
     }
 
     void Start () {
         objectCollider = gameObject.GetComponent<Collider>();
 		sp = GameObject.FindGameObjectWithTag("Player").GetComponent<ShootPortal> ();
-		rb = GetComponent<Rigidbody> ();
-		efc = GetComponent<ExtendedFlycam> ();
+        rb = GetComponent<Rigidbody>();
+        efc = GetComponent<ExtendedFlycam> ();
 
     }
     private void OnTriggerExit(Collider other) {
@@ -85,19 +94,19 @@ public class TeleportationV2 : MonoBehaviour {
 			local.z = 0.15f;
 			Vector3 newPos = portal2.TransformPoint(local);
 			transform.position = newPos;
-            rb.velocity = exitVelocity;
 
 
 			//Käännetään matriiseilla, voisi myös käyttää unityn omia funktioita(transform.transformDirection, transform.inverseTransformDirection)
 			Matrix4x4 targetFlipRotation = Matrix4x4.TRS(Vector3.zero, Quaternion.AngleAxis(180.0f, Vector3.up), Vector3.one);
 			Matrix4x4 inversionMatrix = targetFlipRotation * portal1.worldToLocalMatrix;
 
-            if(gameObject.tag == "Player") {
+            if (gameObject.tag == "Player") {
                 Quaternion newRotation = Portal.QuaternionFromMatrix(inversionMatrix) * efc.cameraOffset.rotation;
                 efc.cameraOffset.rotation = portal2.rotation * newRotation;
             } else {
                 Quaternion newRotation = Portal.QuaternionFromMatrix(inversionMatrix) * transform.rotation;
                 transform.rotation = portal2.rotation * newRotation;
+                rb.velocity = exitVelocity;
 
             }
 
