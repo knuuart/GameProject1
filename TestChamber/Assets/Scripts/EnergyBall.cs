@@ -5,7 +5,6 @@ using UnityEngine;
 public class EnergyBall : MonoBehaviour {
     Rigidbody rb;
     public float lifeTime, timer;
-    TeleportationV2 tp;
     GameObject spawner;
     BallSpawner bs;
 
@@ -14,7 +13,6 @@ public class EnergyBall : MonoBehaviour {
         spawner = GameObject.Find("BallSpawner");
         bs = spawner.GetComponent<BallSpawner>();
         rb = gameObject.GetComponent<Rigidbody>();
-        tp = GetComponent<TeleportationV2>();
         lifeTime = bs.lifeTime;
         rb.AddForce(spawner.transform.forward, ForceMode.Impulse);
     }

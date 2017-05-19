@@ -83,20 +83,28 @@ public class TeleportationV2 : MonoBehaviour {
 		Vector3 surfacePoint = other.ClosestPoint (transform.position);
 		float distanceFromSurface = Vector3.Distance(surfacePoint, transform.position);
 
-
 		if (distanceFromSurface <= 0.02f) {
-            Vector3 exitVelocity = portal2.transform.forward * rb.velocity.magnitude;
-
-            // Muutetaan nykyinen positio entrance portaalin locaaliin avaruuteen(inverseTransformPoint)
-            // localspacepoint muutetaan worldspacepoint exit portaalin kautta(transformPoint)
+			
+//			var reflected = Vector3.Reflect (rb.velocity, portal1.transform.forward);
+			var inPortal1Coords = portal1.InverseTransformVector (rb.velocity);
+			inPortal1Coords.z *= -1;
+			inPortal1Coords.x *= -1;
+//			var inPortal1Coords = portal1.InverseTransformVector (new Vector3(reflected.x, reflected.y, reflected.z * -1));
+			var exitVelocity = portal2.TransformVector (inPortal1Coords);
+//			Vector3 exitVelocity = portal2.transform.forward * rb.velocity.magnitude;
+//          Muutetaan nykyinen positio entrance portaalin locaaliin avaruuteen(inverseTransformPoint)
+//          localspacepoint muutetaan worldspacepoint exit portaalin kautta(transformPoint)
             Vector3 local = portal1.InverseTransformPoint(transform.position);
+
 			local = Quaternion.AngleAxis (180.0f, Vector3.up) * local;
 			local.z = 0.15f;
 			Vector3 newPos = portal2.TransformPoint(local);
+
 			transform.position = newPos;
+			rb.velocity = exitVelocity;
 
 
-			//Käännetään matriiseilla, voisi myös käyttää unityn omia funktioita(transform.transformDirection, transform.inverseTransformDirection)
+//			Käännetään matriiseilla, voisi myös käyttää unityn omia funktioita(transform.transformDirection, transform.inverseTransformDirection)
 			Matrix4x4 targetFlipRotation = Matrix4x4.TRS(Vector3.zero, Quaternion.AngleAxis(180.0f, Vector3.up), Vector3.one);
 			Matrix4x4 inversionMatrix = targetFlipRotation * portal1.worldToLocalMatrix;
 
@@ -106,7 +114,6 @@ public class TeleportationV2 : MonoBehaviour {
             } else {
                 Quaternion newRotation = Portal.QuaternionFromMatrix(inversionMatrix) * transform.rotation;
                 transform.rotation = portal2.rotation * newRotation;
-                rb.velocity = exitVelocity;
 
             }
 
