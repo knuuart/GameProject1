@@ -34,26 +34,11 @@ public class ShootPortal : MonoBehaviour {
         if(Physics.Raycast(ray, out hit) && !hit.rigidbody) {
 			portal.transform.position = hit.point;
 
-			if (Mathf.Abs (hit.normal.y) < 0.01f) {
+			if (Mathf.Abs (hit.normal.y) < 0.85f) {
 				portal.transform.rotation = Quaternion.LookRotation (hit.normal, Vector3.up);
-			} else if (Mathf.Abs(hit.normal.y) > 0.1f && Mathf.Abs(hit.normal.y) < 0.99f){
-				portal.transform.rotation = Quaternion.LookRotation (hit.normal, Vector3.up);	
 			} else {
 				portal.transform.rotation = Quaternion.LookRotation (hit.normal, Vector3.ProjectOnPlane(ray.direction, hit.normal)); 
-
 			}
-//            if (hit.collider.tag == "Floor") {
-//				Quaternion hitObjectRotation = Quaternion.LookRotation(hit.normal);
-//                portal.transform.position = hit.point;
-//
-////                portal.transform.rotation = hitObjectRotation;
-////				portal.transform.SetPositionAndRotation (hit.point, hitObjectRotation);
-//                // somehow rotate portal here
-//
-//            } else {
-//                Quaternion hitObjectRotation = Quaternion.LookRotation(hit.normal);
-//				portal.transform.SetPositionAndRotation (hit.point, hitObjectRotation);
-//            }
             if (portal == bluePortal) {
                 behindBlue = hit.collider.gameObject;
             }
