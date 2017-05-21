@@ -25,14 +25,6 @@ public class TeleportationV2 : MonoBehaviour {
         }
     }
     private void OnTriggerStay(Collider other) {
-        //if (sp.behindBlue != null && sp.behindOrange != null) {
-        //    if (other.tag == "BlueMesh") {
-        //        PortalCollision(other, bluePortal.transform, orangePortal.transform);
-        //    }
-        //    if (other.tag == "OrangeMesh") {
-        //        PortalCollision(other, orangePortal.transform, bluePortal.transform);
-        //    }
-        //}
         if (sp.behindBlue != null && sp.behindOrange != null) {
 
             if (other.tag == "BlueTrigger") {

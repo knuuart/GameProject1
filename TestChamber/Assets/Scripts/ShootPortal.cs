@@ -25,14 +25,14 @@ public class ShootPortal : MonoBehaviour {
     }
 
     public void CreatePortal(GameObject portal) {
-		portal.SetActive(true);
         int x = Screen.width / 2;
         int y = Screen.height / 2;
         
         Ray ray = Camera.main.ScreenPointToRay(new Vector3(x, y));
         RaycastHit hit;
         if(Physics.Raycast(ray, out hit) && !hit.rigidbody) {
-			portal.transform.position = hit.point;
+            portal.SetActive(true);
+            portal.transform.position = hit.point;
 
 			if (Mathf.Abs (hit.normal.y) < 0.85f) {
 				portal.transform.rotation = Quaternion.LookRotation (hit.normal, Vector3.up);
