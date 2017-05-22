@@ -11,6 +11,7 @@ public class playerBehaviourScript : MonoBehaviour {
     public bool mInvert;
     public float maxY = 60f;
     public float minY = -60f;
+	public float defaultRotation = 0f, rotationSmooth = 0.1f;
     //public float maxX = Mathf.Infinity;
     //public float minX = Mathf.Infinity;
     public Transform cameraOffset, cameraTransform;
@@ -43,6 +44,19 @@ public class playerBehaviourScript : MonoBehaviour {
     }
 
     private void FixedUpdate() {
+		if (transform.localRotation.x != defaultRotation) {
+//			var bbz = Mathf.Lerp (transform.localRotation.x, defaultRotation, rotationSmooth * Time.deltaTime);
+//			transform.eulerAngles = new Vector3 (bbz,
+//				transform.localEulerAngles.y,
+//				transform.localEulerAngles.z);
+//			transform.localEulerAngles = Vector3.Lerp (transform.localEulerAngles, 
+//														new Vector3 (defaultRotation, 
+//														transform.localEulerAngles.y, 
+//														transform.localEulerAngles.z), rotationSmooth * Time.deltaTime);
+			transform.rotation = Quaternion.Slerp(Quaternion.Euler(transform.localEulerAngles), Quaternion.Euler(defaultRotation, 
+																								transform.localEulerAngles.y, 
+				defaultRotation), Time.time * rotationSmooth);
+		}
 
         if (mInvert) { mouseSensitivityY = mouseSensitivityY * -1; }
 

@@ -11,6 +11,7 @@ public class TeleportationV2 : MonoBehaviour {
 	Rigidbody rb;
 	public Transform blueExit, orangeExit;
 	ExtendedFlycam efc;
+	playerBehaviourScript pbs;
     bool inBlueTrigger, inOrangeTrigger;
     [Header("Velocity Values")]
     public Vector3 velocity;
@@ -29,13 +30,13 @@ public class TeleportationV2 : MonoBehaviour {
 
             if (other.tag == "BlueTrigger") {
                 //inBlueTrigger = true;
-                Physics.IgnoreCollision(objectCollider, sp.behindBlue.GetComponent<Collider>());
+				Physics.IgnoreCollision(objectCollider, sp.behindBlue[0].GetComponent<Collider>());
                 //PortalCollision(other, bluePortal.transform, orangePortal.transform);
 
             }
             if (other.tag == "OrangeTrigger") {
                 //inOrangeTrigger = true;
-                Physics.IgnoreCollision(objectCollider, sp.behindOrange.GetComponent<Collider>());
+				Physics.IgnoreCollision(objectCollider, sp.behindOrange[0].GetComponent<Collider>());
                 //PortalCollision(other, orangePortal.transform, bluePortal.transform);
 
             }
@@ -57,21 +58,21 @@ public class TeleportationV2 : MonoBehaviour {
 		sp = GameObject.FindGameObjectWithTag("Player").GetComponent<ShootPortal> ();
         rb = GetComponent<Rigidbody>();
         efc = GetComponent<ExtendedFlycam> ();
+		pbs = GetComponent<playerBehaviourScript> ();
         
 
     }
     private void OnTriggerExit(Collider other) {
         if (sp.behindBlue != null && sp.behindOrange != null) {
             if (other.tag == "BlueTrigger") {
-                Physics.IgnoreCollision(objectCollider, sp.behindBlue.GetComponent<Collider>(), false);
+                Physics.IgnoreCollision(objectCollider, sp.behindBlue[0].GetComponent<Collider>(), false);
                 inBlueTrigger = false;
-            }
+        	}
             if (other.tag == "OrangeTrigger") {
-                Physics.IgnoreCollision(objectCollider, sp.behindOrange.GetComponent<Collider>(), false);
-                inOrangeTrigger = false;
-
+                Physics.IgnoreCollision(objectCollider, sp.behindOrange[0].GetComponent<Collider>(), false);
+				inOrangeTrigger = false;
             }
-        }
+        }	
 
     }
 
@@ -126,8 +127,13 @@ public class TeleportationV2 : MonoBehaviour {
 			rb.velocity = exitVelocity;
 
             if (gameObject.tag == "Player") {
-                Quaternion newRotation = Portal.QuaternionFromMatrix(inversionMatrix) * efc.cameraOffset.rotation;
-                efc.cameraOffset.rotation = portal2.rotation * newRotation;
+//                Quaternion newRotation = Portal.QuaternionFromMatrix(inversionMatrix) * efc.cameraOffset.rotation;
+//				Quaternion newRotation = Portal.QuaternionFromMatrix(inversionMatrix) * pbs.cameraOffset.rotation;
+//				pbs.cameraOffset.rotation = portal2.rotation * newRotation;
+//                efc.cameraOffset.rotation = portal2.rotation * newRotation;
+//				Quaternion newRotation = Portal.QuaternionFromMatrix(inversionMatrix) * transform.rotation;
+//				transform.rotation = portal2.rotation * newRotation;
+				transform.forward = portal2.forward;
             } else {
                 Quaternion newRotation = Portal.QuaternionFromMatrix(inversionMatrix) * transform.rotation;
                 transform.rotation = portal2.rotation * newRotation;

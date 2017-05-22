@@ -6,7 +6,7 @@ public class ShootPortal : MonoBehaviour {
 
     public GameObject orangePortal, bluePortal;
     public Quaternion orangeRotation, blueRotation;
-    public GameObject behindBlue, behindOrange;
+	public List<GameObject> behindBlue, behindOrange;
     public Transform playerCam;
 
     // Use this for initialization
@@ -40,10 +40,13 @@ public class ShootPortal : MonoBehaviour {
 				portal.transform.rotation = Quaternion.LookRotation (hit.normal, Vector3.ProjectOnPlane(ray.direction, hit.normal)); 
 			}
             if (portal == bluePortal) {
-                behindBlue = hit.collider.gameObject;
+				behindBlue.Add(hit.collider.gameObject);
+				behindBlue.RemoveAt(0);
             }
             if (portal == orangePortal) {
-                behindOrange = hit.collider.gameObject;
+				behindOrange.Add(hit.collider.gameObject);
+				behindOrange.RemoveAt(0);
+
             }
         }
     }
