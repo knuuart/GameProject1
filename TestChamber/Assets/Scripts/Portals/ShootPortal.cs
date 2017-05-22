@@ -6,12 +6,13 @@ public class ShootPortal : MonoBehaviour {
 
     public GameObject orangePortal, bluePortal;
     public Quaternion orangeRotation, blueRotation;
-	public List<GameObject> behindBlue, behindOrange;
+	public GameObject behindBlue, behindOrange;
     public Transform playerCam;
+	TeleportationV2 tp;
 
     // Use this for initialization
     void Start () {
-		
+		tp = GetComponent<TeleportationV2> ();
 	}
 	
 	// Update is called once per frame
@@ -40,13 +41,10 @@ public class ShootPortal : MonoBehaviour {
 				portal.transform.rotation = Quaternion.LookRotation (hit.normal, Vector3.ProjectOnPlane(ray.direction, hit.normal)); 
 			}
             if (portal == bluePortal) {
-				behindBlue.Add(hit.collider.gameObject);
-				behindBlue.RemoveAt(0);
+				behindBlue = hit.collider.gameObject;
             }
             if (portal == orangePortal) {
-				behindOrange.Add(hit.collider.gameObject);
-				behindOrange.RemoveAt(0);
-
+				behindOrange = hit.collider.gameObject;
             }
         }
     }
