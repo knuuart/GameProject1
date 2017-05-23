@@ -17,35 +17,17 @@ public class CarryObject : MonoBehaviour {
         }
         if (carrying) {
             Vector3 targetPosition = Camera.main.transform.position + Camera.main.transform.forward * distance;
-            carriedObject.transform.position = Vector3.Lerp(carriedObject.transform.position, targetPosition, 10f);
-            //carriedObject.transform.SetParent(GameObject.FindGameObjectWithTag("Player").transform);
-            carriedObject.GetComponent<Rigidbody>().useGravity = false;
-			Physics.IgnoreCollision (GetComponent<Collider> (), carriedObject.GetComponent<Collider> ());
-
-//            carriedObject.GetComponent<Rigidbody>().MovePosition(Vector3.Lerp(carriedObject.transform.position, targetPosition, 10f));
-            //Vector3 targetPosition = Camera.main.transform.position + Camera.main.transform.forward * distance;
-            //Vector3 newDirection = targetPosition - carriedObject.transform.position;
             carriedObject.GetComponent<Rigidbody>().freezeRotation = true;
-            //carriedObject.transform.LookAt(Camera.main.transform.position);
-            //carriedObject.transform.up = transform.up;
-
+            carriedObject.GetComponent<Rigidbody>().useGravity = false;
+            Physics.IgnoreCollision(GetComponent<Collider>(), carriedObject.GetComponent<Collider>());
+            carriedObject.GetComponent<Rigidbody>().MovePosition(Vector3.Lerp(carriedObject.transform.position, targetPosition, 10f));
             carriedObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
-
-//            carriedObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationY;
-//            carriedObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationZ;
-//            carriedObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX;
-            //carriedObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
-
 
             if (Input.GetKeyDown(KeyCode.G) && (carriedObject != null)) { // || newDirection.magnitude > 5f) {
                 carrying = false;
                 carriedObject.GetComponent<Rigidbody>().useGravity = true;
                 carriedObject.GetComponent<Rigidbody>().freezeRotation = false;
-                carriedObject.transform.SetParent(null);
-				Physics.IgnoreCollision (GetComponent<Collider> (), carriedObject.GetComponent<Collider> (), false);
-
-
-
+                Physics.IgnoreCollision(GetComponent<Collider>(), carriedObject.GetComponent<Collider>(), false);
             }
         }
 

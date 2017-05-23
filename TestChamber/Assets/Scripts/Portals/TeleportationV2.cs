@@ -7,32 +7,44 @@ public class TeleportationV2 : MonoBehaviour {
 	public GameObject bluePortal, orangePortal;
     ShootPortal sp;
     bool hasPorted;
-    public Collider objectCollider;
+    public Collider objectCollider, ignoredBlueCollider, ignoredOrangeCollider, portalCollider;
 	Rigidbody rb;
 	ExtendedFlycam efc;
 	playerBehaviourScript pbs;
     bool inBlueTrigger, inOrangeTrigger;
+    Transform portal1, portal2;
+
     [Header("Velocity Values")]
     public Vector3 velocity;
     public float velocityMagnitude;
 
-
+    
     private void OnTriggerStay(Collider other) {
         if (sp.behindBlue != null && sp.behindOrange != null) {
 
             if (other.tag == "BlueTrigger") {
-                inBlueTrigger = true;
-				Physics.IgnoreCollision(objectCollider, sp.behindBlue.GetComponent<Collider>());
+                portalCollider = other.GetComponent<Collider>();
+                //portal1 = bluePortal.transform;
+                //portal2 = orangePortal.transform;
+                inBlueTrigger = true; // poista boolit, laita triggerit antamaan arvot updatessa juoksevaan teleporttifunktioon?
+                ignoredBlueCollider = sp.behindBlue.GetComponent<Collider>();
+                Physics.IgnoreCollision(objectCollider, ignoredBlueCollider);
                 //PortalCollision(other, bluePortal.transform, orangePortal.transform);
 
             }
             if (other.tag == "OrangeTrigger") {
+                portalCollider = other.GetComponent<Collider>();
+                //portal1 = orangePortal.transform;
+                //portal2 = bluePortal.transform;
                 inOrangeTrigger = true;
-				Physics.IgnoreCollision(objectCollider, sp.behindOrange.GetComponent<Collider>());
+                ignoredOrangeCollider = sp.behindOrange.GetComponent<Collider>();
+                Physics.IgnoreCollision(objectCollider, ignoredOrangeCollider);
                 //PortalCollision(other, orangePortal.transform, bluePortal.transform);
 
             }
         }
+        
+
     }
 
     void Start () {
@@ -43,40 +55,49 @@ public class TeleportationV2 : MonoBehaviour {
 		pbs = GetComponent<playerBehaviourScript> ();
     }
     private void OnTriggerExit(Collider other) {
-		if (sp.behindBlue != null && sp.behindOrange != null) {
+        if (sp.behindBlue != null && sp.behindOrange != null) {
             if (other.tag == "BlueTrigger") {
-				Physics.IgnoreCollision (objectCollider, sp.behindBlue.GetComponent<Collider> (), false);
+                Physics.IgnoreCollision(objectCollider, ignoredBlueCollider, false);
+                //if(sp.behindBlue.GetComponent<Collider>() != ignoredBlueCollider) {
+                //    Physics.IgnoreCollision(objectCollider, ignoredBlueCollider, false);
+                //}
                 inBlueTrigger = false;
         	}
             if (other.tag == "OrangeTrigger") {
-				Physics.IgnoreCollision(objectCollider, sp.behindOrange.GetComponent<Collider>(), false);
-				inOrangeTrigger = false;
+                Physics.IgnoreCollision(objectCollider, ignoredOrangeCollider, false);
+                //if (sp.behindOrange.GetComponent<Collider>() != ignoredOrangeCollider) {
+                //    Physics.IgnoreCollision(objectCollider, ignoredOrangeCollider, false);
+                //}
+                inOrangeTrigger = false;
             }
         }	
 
     }
+    
 
     void Update () {
+
         velocity = rb.velocity;
         velocityMagnitude = rb.velocity.magnitude;
 
-        if (Input.GetKey("z")) {
-            // slow down time from 1 too 0.5
+        if (Input.GetKey(KeyCode.Z)) {
             Time.timeScale = 0.1f;
         } else {
             Time.timeScale = 1;
-        }
 
+        }
         bluePortal = GameObject.FindGameObjectWithTag("BluePortal");
         orangePortal = GameObject.FindGameObjectWithTag("OrangePortal");
 
-        if (inBlueTrigger && (sp.behindBlue != null && sp.behindOrange != null)) {
-            PortalCollision(GameObject.FindGameObjectWithTag("BlueTrigger").GetComponent<Collider>(), bluePortal.transform, orangePortal.transform);
+        if (inBlueTrigger) { //&& (sp.behindBlue != null && sp.behindOrange != null)) {
+            PortalCollision(portalCollider, bluePortal.transform, orangePortal.transform);
         }
-        if (inOrangeTrigger && (sp.behindBlue != null && sp.behindOrange != null)) {
-            PortalCollision(GameObject.FindGameObjectWithTag("OrangeTrigger").GetComponent<Collider>(), orangePortal.transform, bluePortal.transform);
+        if (inOrangeTrigger) { //&& (sp.behindBlue != null && sp.behindOrange != null)) {
+            PortalCollision(portalCollider, orangePortal.transform, bluePortal.transform);
         }
-
+        //if(portalCollider != null && portal1 != null && portal2 != null) {
+        //    PortalCollision(portalCollider, portal1, portal2);
+        //}
     }
 
 	void PortalCollision(Collider other, Transform portal1, Transform portal2){
@@ -107,13 +128,12 @@ public class TeleportationV2 : MonoBehaviour {
 			rb.velocity = exitVelocity;
 
             if (gameObject.tag == "Player") {
-//                Quaternion newRotation = Portal.QuaternionFromMatrix(inversionMatrix) * efc.cameraOffset.rotation;
-//				Quaternion newRotation = Portal.QuaternionFromMatrix(inversionMatrix) * pbs.cameraOffset.rotation;
-//				pbs.cameraOffset.rotation = portal2.rotation * newRotation;
-//                efc.cameraOffset.rotation = portal2.rotation * newRotation;
-				Quaternion newRotation = Portal.QuaternionFromMatrix(inversionMatrix) * transform.rotation;
-				transform.rotation = portal2.rotation * newRotation;
-//				transform.forward = portal2.forward;
+                //                Quaternion newRotation = Portal.QuaternionFromMatrix(inversionMatrix) * efc.cameraOffset.rotation;
+                //				Quaternion newRotation = Portal.QuaternionFromMatrix(inversionMatrix) * pbs.cameraOffset.rotation;
+                //				pbs.cameraOffset.rotation = portal2.rotation * newRotation;
+                //                efc.cameraOffset.rotation = portal2.rotation * newRotation;
+                Quaternion newRotation = Portal.QuaternionFromMatrix(inversionMatrix) * transform.rotation;
+                transform.rotation = portal2.rotation * newRotation;
             } else {
                 Quaternion newRotation = Portal.QuaternionFromMatrix(inversionMatrix) * transform.rotation;
                 transform.rotation = portal2.rotation * newRotation;
