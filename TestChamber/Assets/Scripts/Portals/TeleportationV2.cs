@@ -128,8 +128,9 @@ public class TeleportationV2 : MonoBehaviour {
 			rb.velocity = exitVelocity;
 
             if (gameObject.tag == "Player") {
-                //                Quaternion newRotation = Portal.QuaternionFromMatrix(inversionMatrix) * efc.cameraOffset.rotation;
-                //                efc.cameraOffset.rotation = portal2.rotation * newRotation;
+//				Quaternion newRotation = Portal.QuaternionFromMatrix(inversionMatrix) * efc.cameraOffset.rotation;
+//				efc.cameraOffset.rotation = portal2.rotation * newRotation;
+
                 Quaternion newRotation = Portal.QuaternionFromMatrix(inversionMatrix) * transform.rotation;
 //                transform.rotation = portal2.rotation * newRotation;
 				pbs.SetRotation(portal2.rotation * newRotation);

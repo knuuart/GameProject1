@@ -20,7 +20,7 @@ public class CarryObject : MonoBehaviour {
             carriedObject.GetComponent<Rigidbody>().freezeRotation = true;
             carriedObject.GetComponent<Rigidbody>().useGravity = false;
             Physics.IgnoreCollision(GetComponent<Collider>(), carriedObject.GetComponent<Collider>());
-            carriedObject.GetComponent<Rigidbody>().MovePosition(Vector3.Lerp(carriedObject.transform.position, targetPosition, 10f));
+			carriedObject.GetComponent<Rigidbody>().MovePosition(targetPosition);
             carriedObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
 
             if (Input.GetKeyDown(KeyCode.G) && (carriedObject != null)) { // || newDirection.magnitude > 5f) {
@@ -30,7 +30,6 @@ public class CarryObject : MonoBehaviour {
                 Physics.IgnoreCollision(GetComponent<Collider>(), carriedObject.GetComponent<Collider>(), false);
             }
         }
-
     }
 
     void PickupAndCarry() {

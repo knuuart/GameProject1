@@ -39,6 +39,8 @@ public class playerBehaviourScript : MonoBehaviour {
 	
 	
 	void Update () {
+		transform.rotation = Quaternion.Slerp (Quaternion.Euler (transform.localEulerAngles), Quaternion.Euler (defaultRotation, 
+			transform.localEulerAngles.y, defaultRotation), Time.time * rotationSmooth);
         if (Input.GetKeyDown(KeyCode.End)) {
             Cursor.lockState = Cursor.lockState == CursorLockMode.Locked ? CursorLockMode.None : CursorLockMode.Locked;
         }
@@ -51,10 +53,10 @@ public class playerBehaviourScript : MonoBehaviour {
     private void FixedUpdate() {
 
 		//Rotates the player upright when stepping out of a portal in an angle etc.
-		if (transform.localRotation.x != defaultRotation) {
-			transform.rotation = Quaternion.Slerp (Quaternion.Euler (transform.localEulerAngles), Quaternion.Euler (defaultRotation, 
-				transform.localEulerAngles.y, defaultRotation), Time.time * rotationSmooth);
-		}
+//		if (transform.localRotation.x != defaultRotation) {
+//			transform.rotation = Quaternion.Slerp (Quaternion.Euler (transform.localEulerAngles), Quaternion.Euler (defaultRotation, 
+//				transform.localEulerAngles.y, defaultRotation), Time.time * rotationSmooth);
+//		}
 
 
 		//The most important setting
