@@ -5,13 +5,12 @@ using UnityEngine;
 public class ShootPortal : MonoBehaviour {
 
     public GameObject orangePortal, bluePortal;
-    public Quaternion orangeRotation, blueRotation;
-	public List<GameObject> behindBlue, behindOrange;
-    public Transform playerCam;
+	public GameObject behindBlue, behindOrange;
+    TeleportationV2 tp;
 
     // Use this for initialization
-    void Start () {
-		
+    void Awake () {
+        tp = GetComponent<TeleportationV2>();
 	}
 	
 	// Update is called once per frame
@@ -22,6 +21,9 @@ public class ShootPortal : MonoBehaviour {
         if (Input.GetMouseButtonDown(1)) {
             CreatePortal(orangePortal);
         }
+    }
+    public void ResetCollision(Collider objectCollider, Collider ignoredCollider) {
+        Physics.IgnoreCollision(objectCollider, ignoredCollider, false);
     }
 
     public void CreatePortal(GameObject portal) {
@@ -40,13 +42,16 @@ public class ShootPortal : MonoBehaviour {
 				portal.transform.rotation = Quaternion.LookRotation (hit.normal, Vector3.ProjectOnPlane(ray.direction, hit.normal)); 
 			}
             if (portal == bluePortal) {
-				behindBlue.Add(hit.collider.gameObject);
-				behindBlue.RemoveAt(0);
+                if(tp.ignoredBlueCollider != null) {
+                    ResetCollision(tp.objectCollider, tp.ignoredBlueCollider);
+                }
+                behindBlue = hit.collider.gameObject;
             }
             if (portal == orangePortal) {
-				behindOrange.Add(hit.collider.gameObject);
-				behindOrange.RemoveAt(0);
-
+                if(tp.ignoredOrangeCollider != null) {
+                    ResetCollision(tp.objectCollider, tp.ignoredOrangeCollider);
+                }
+                behindOrange = hit.collider.gameObject;
             }
         }
     }
