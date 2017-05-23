@@ -5,7 +5,7 @@ using UnityEngine;
 public class CarryObject : MonoBehaviour {
     GameObject carriedObject;
     public bool carrying;
-    public float distance;
+    public float distance, throwForce = 7f;
     
 	void Start () {
 	}
@@ -28,6 +28,7 @@ public class CarryObject : MonoBehaviour {
                 carriedObject.GetComponent<Rigidbody>().useGravity = true;
                 carriedObject.GetComponent<Rigidbody>().freezeRotation = false;
                 Physics.IgnoreCollision(GetComponent<Collider>(), carriedObject.GetComponent<Collider>(), false);
+                carriedObject.GetComponent<Rigidbody>().AddForce(Camera.main.transform.forward * throwForce, ForceMode.Impulse);
             }
         }
     }

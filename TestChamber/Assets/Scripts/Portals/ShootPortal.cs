@@ -21,6 +21,11 @@ public class ShootPortal : MonoBehaviour {
         if (Input.GetMouseButtonDown(1)) {
             CreatePortal(orangePortal);
         }
+        if(behindBlue != null && behindOrange != null) {
+            orangePortal.GetComponentInChildren<MeshRenderer>().enabled = true;
+            bluePortal.GetComponentInChildren<MeshRenderer>().enabled = true;
+
+        }
     }
     public void ResetCollision(Collider objectCollider, Collider ignoredCollider) {
         Physics.IgnoreCollision(objectCollider, ignoredCollider, false);
