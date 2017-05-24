@@ -10,9 +10,9 @@ public class TeleportationV2 : MonoBehaviour {
     public Collider objectCollider, ignoredBlueCollider, ignoredOrangeCollider, bluePortalCollider, orangePortalCollider;
 	Rigidbody rb;
 	ExtendedFlycam efc;
-	NewBehaviourScript nbs;
+	NewPlayerBehaviour npb;
     bool inBlueTrigger, inOrangeTrigger;
-    Transform portal1, portal2;
+//    Transform portal1, portal2;
 	Camera playerCam;
 
     [Header("Velocity Values")]
@@ -27,9 +27,9 @@ public class TeleportationV2 : MonoBehaviour {
                 bluePortalCollider = other.GetComponent<Collider>();
                 //portal1 = bluePortal.transform;
                 //portal2 = orangePortal.transform;
+				ignoredBlueCollider = sp.behindBlue.GetComponent<Collider>();
                 PortalCollision(bluePortalCollider, bluePortal.transform, orangePortal.transform);
                 //inBlueTrigger = true; // poista boolit, laita triggerit antamaan arvot updatessa juoksevaan teleporttifunktioon?
-                ignoredBlueCollider = sp.behindBlue.GetComponent<Collider>();
                 Physics.IgnoreCollision(objectCollider, ignoredBlueCollider);
                 //PortalCollision(other, bluePortal.transform, orangePortal.transform);
 
@@ -38,9 +38,9 @@ public class TeleportationV2 : MonoBehaviour {
                 orangePortalCollider = other.GetComponent<Collider>();
                 //portal1 = orangePortal.transform;
                 //portal2 = bluePortal.transform;
+				ignoredOrangeCollider = sp.behindOrange.GetComponent<Collider>();
                 PortalCollision(orangePortalCollider, orangePortal.transform, bluePortal.transform);
                 //inOrangeTrigger = true;
-                ignoredOrangeCollider = sp.behindOrange.GetComponent<Collider>();
                 Physics.IgnoreCollision(objectCollider, ignoredOrangeCollider);
                 //PortalCollision(other, orangePortal.transform, bluePortal.transform);
 
@@ -55,7 +55,7 @@ public class TeleportationV2 : MonoBehaviour {
 		sp = GameObject.FindGameObjectWithTag("Player").GetComponent<ShootPortal> ();
         rb = GetComponent<Rigidbody>();
         efc = GetComponent<ExtendedFlycam> ();
-		nbs = GetComponent<NewBehaviourScript> ();
+		npb = GetComponent<NewPlayerBehaviour> ();
     }
     private void OnTriggerExit(Collider other) {
         if (sp.behindBlue != null && sp.behindOrange != null) {
@@ -135,8 +135,8 @@ public class TeleportationV2 : MonoBehaviour {
 //				Quaternion newRotation = Portal.QuaternionFromMatrix(inversionMatrix) * efc.cameraOffset.rotation;
 //				efc.cameraOffset.rotation = portal2.rotation * newRotation;
 
-				Quaternion newRotation = Portal.QuaternionFromMatrix(inversionMatrix) * nbs.cam.transform.rotation;
-				nbs.cam.transform.rotation = portal2.rotation * newRotation;
+				Quaternion newRotation = Portal.QuaternionFromMatrix(inversionMatrix) * npb.cam.transform.rotation;
+				npb.cam.transform.rotation = portal2.rotation * newRotation;
             } else {
                 Quaternion newRotation = Portal.QuaternionFromMatrix(inversionMatrix) * transform.rotation;
                 transform.rotation = portal2.rotation * newRotation;

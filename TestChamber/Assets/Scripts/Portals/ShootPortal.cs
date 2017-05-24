@@ -38,7 +38,6 @@ public class ShootPortal : MonoBehaviour {
         Ray ray = Camera.main.ScreenPointToRay(new Vector3(x, y));
         RaycastHit hit;
         if(Physics.Raycast(ray, out hit) && !hit.rigidbody) {
-            portal.SetActive(true);
             portal.transform.position = hit.point;
 
 			if (Mathf.Abs (hit.normal.y) < 0.85f) {
@@ -58,6 +57,8 @@ public class ShootPortal : MonoBehaviour {
                 }
                 behindOrange = hit.collider.gameObject;
             }
+//			portal.SetActive(true);
+
         }
     }
 }

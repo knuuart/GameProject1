@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NewBehaviourScript : MonoBehaviour {
+public class NewPlayerBehaviour : MonoBehaviour {
 
-	public float movePower;
+	public float groundPower = 20f, airPower = 3f;
 	public float moveMax;
 	public float mouseSensitivity;
 	private float mouseSensitivityY;
@@ -17,6 +17,7 @@ public class NewBehaviourScript : MonoBehaviour {
 	public bool grounded;
 	public Camera cam;
 	Rigidbody rb;
+	float movePower;
 	public float sphereRadius, sphereDistance, jumpForce;
 
 	// Use this for initialization
@@ -50,8 +51,8 @@ public class NewBehaviourScript : MonoBehaviour {
 
 		}
 		if (Input.GetKeyDown(KeyCode.P)) print (Vector3.Angle (Vector3.zero, Vector3.zero));
-//		var q = Quaternion.AngleAxis(RotX, Vector3.up);
-//		cam.transform.rotation = q * Quaternion.AngleAxis(RotY, q * Vector3.left) *  cam.transform.rotation;
+		//		var q = Quaternion.AngleAxis(RotX, Vector3.up);
+		//		cam.transform.rotation = q * Quaternion.AngleAxis(RotY, q * Vector3.left) *  cam.transform.rotation;
 		RaycastHit hit;
 		if (Physics.SphereCast (transform.position, sphereRadius, Vector3.down, out hit, sphereDistance)) {
 			grounded = true;
@@ -63,8 +64,13 @@ public class NewBehaviourScript : MonoBehaviour {
 				rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
 			}
 		}
+		if (grounded == false) {
+			movePower = airPower;
+		} else {
+			movePower = groundPower;
+		}
 	}
-	
+
 	// Update is called once per frame
 	void FixedUpdate () {
 		float MoveX = Input.GetAxis ("Horizontal");
