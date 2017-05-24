@@ -25,23 +25,23 @@ public class TeleportationV2 : MonoBehaviour {
 
             if (other.tag == "BlueTrigger") {
                 bluePortalCollider = other.GetComponent<Collider>();
-                //portal1 = bluePortal.transform;
-                //portal2 = orangePortal.transform;
 				ignoredBlueCollider = sp.behindBlue.GetComponent<Collider>();
+				Physics.IgnoreCollision(objectCollider, ignoredBlueCollider);
+//				Physics.IgnoreCollision(objectCollider, ignoredOrangeCollider);
+
                 PortalCollision(bluePortalCollider, bluePortal.transform, orangePortal.transform);
                 //inBlueTrigger = true; // poista boolit, laita triggerit antamaan arvot updatessa juoksevaan teleporttifunktioon?
-                Physics.IgnoreCollision(objectCollider, ignoredBlueCollider);
                 //PortalCollision(other, bluePortal.transform, orangePortal.transform);
 
             }
             if (other.tag == "OrangeTrigger") {
                 orangePortalCollider = other.GetComponent<Collider>();
-                //portal1 = orangePortal.transform;
-                //portal2 = bluePortal.transform;
 				ignoredOrangeCollider = sp.behindOrange.GetComponent<Collider>();
+				Physics.IgnoreCollision(objectCollider, ignoredOrangeCollider);
+//				Physics.IgnoreCollision(objectCollider, ignoredBlueCollider);
+
                 PortalCollision(orangePortalCollider, orangePortal.transform, bluePortal.transform);
                 //inOrangeTrigger = true;
-                Physics.IgnoreCollision(objectCollider, ignoredOrangeCollider);
                 //PortalCollision(other, orangePortal.transform, bluePortal.transform);
 
             }

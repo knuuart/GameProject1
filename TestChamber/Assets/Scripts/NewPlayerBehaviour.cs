@@ -50,7 +50,7 @@ public class NewPlayerBehaviour : MonoBehaviour {
 			cam.transform.rotation = qy * cam.transform.rotation;
 
 		}
-		if (Input.GetKeyDown(KeyCode.P)) print (Vector3.Angle (Vector3.zero, Vector3.zero));
+		//if (Input.GetKeyDown(KeyCode.P)) print (Vector3.Angle (Vector3.zero, Vector3.zero)); // Angle between two zero vectors is 90 :thinking:
 		//		var q = Quaternion.AngleAxis(RotX, Vector3.up);
 		//		cam.transform.rotation = q * Quaternion.AngleAxis(RotY, q * Vector3.left) *  cam.transform.rotation;
 		RaycastHit hit;
