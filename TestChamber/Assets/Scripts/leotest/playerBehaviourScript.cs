@@ -87,9 +87,6 @@ public class playerBehaviourScript : MonoBehaviour {
         var newVelocity = rb.velocity + aa;
 
         newVelocity = Vector3.ClampMagnitude(newVelocity, grounded ? groundSpeedLimit : airSpeedLimit);
-
-        //rb.velocity = new Vector3 (aa.x, rb.velocity.y, aa.z);
-        //rb.velocity += aa;
         rb.velocity = newVelocity;
 
     }

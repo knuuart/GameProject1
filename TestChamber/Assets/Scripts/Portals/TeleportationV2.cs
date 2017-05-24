@@ -7,7 +7,7 @@ public class TeleportationV2 : MonoBehaviour {
 	public GameObject bluePortal, orangePortal;
     ShootPortal sp;
     bool hasPorted;
-    public Collider objectCollider, ignoredBlueCollider, ignoredOrangeCollider, portalCollider;
+    public Collider objectCollider, ignoredBlueCollider, ignoredOrangeCollider, bluePortalCollider, orangePortalCollider;
 	Rigidbody rb;
 	ExtendedFlycam efc;
 	NewBehaviourScript nbs;
@@ -24,10 +24,10 @@ public class TeleportationV2 : MonoBehaviour {
         if (sp.behindBlue != null && sp.behindOrange != null) {
 
             if (other.tag == "BlueTrigger") {
-                portalCollider = other.GetComponent<Collider>();
+                bluePortalCollider = other.GetComponent<Collider>();
                 //portal1 = bluePortal.transform;
                 //portal2 = orangePortal.transform;
-                PortalCollision(portalCollider, bluePortal.transform, orangePortal.transform);
+                PortalCollision(bluePortalCollider, bluePortal.transform, orangePortal.transform);
                 //inBlueTrigger = true; // poista boolit, laita triggerit antamaan arvot updatessa juoksevaan teleporttifunktioon?
                 ignoredBlueCollider = sp.behindBlue.GetComponent<Collider>();
                 Physics.IgnoreCollision(objectCollider, ignoredBlueCollider);
@@ -35,10 +35,10 @@ public class TeleportationV2 : MonoBehaviour {
 
             }
             if (other.tag == "OrangeTrigger") {
-                portalCollider = other.GetComponent<Collider>();
+                orangePortalCollider = other.GetComponent<Collider>();
                 //portal1 = orangePortal.transform;
                 //portal2 = bluePortal.transform;
-                PortalCollision(portalCollider, orangePortal.transform, bluePortal.transform);
+                PortalCollision(orangePortalCollider, orangePortal.transform, bluePortal.transform);
                 //inOrangeTrigger = true;
                 ignoredOrangeCollider = sp.behindOrange.GetComponent<Collider>();
                 Physics.IgnoreCollision(objectCollider, ignoredOrangeCollider);

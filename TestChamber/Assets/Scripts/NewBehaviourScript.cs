@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class NewBehaviourScript : MonoBehaviour {
+
 	public float movePower;
 	public float moveMax;
 	public float mouseSensitivity;
@@ -11,8 +12,12 @@ public class NewBehaviourScript : MonoBehaviour {
 	public float maxY = 60f;
 	public float minY = -60f;
 	public float defaultRotation = 0f, rotationSmooth = 0.1f;
+	public float groundSpeedLimit;
+	public float airSpeedLimit;
+	public bool grounded;
 	public Camera cam;
 	Rigidbody rb;
+	public float sphereRadius, sphereDistance, jumpForce;
 
 	// Use this for initialization
 	void Awake () {
@@ -22,6 +27,10 @@ public class NewBehaviourScript : MonoBehaviour {
 
 	}
 	void Update(){
+		if (mInvert) {
+			mouseSensitivityY = mouseSensitivityY * -1;
+		}
+
 		cam.transform.rotation = Quaternion.Slerp (Quaternion.Euler (cam.transform.localEulerAngles), Quaternion.Euler (cam.transform.localEulerAngles.x, 
 			cam.transform.localEulerAngles.y, defaultRotation), Time.time * rotationSmooth);
 
@@ -30,11 +39,30 @@ public class NewBehaviourScript : MonoBehaviour {
 		// RotY = Mathf.Clamp (RotY, minY, maxY);
 		var qx = Quaternion.AngleAxis(RotX, Vector3.up);
 		cam.transform.rotation = qx * cam.transform.rotation;
-		var qy = Quaternion.AngleAxis(RotY, Vector3.ProjectOnPlane(-cam.transform.right, Vector3.up));
-		cam.transform.rotation = qy * cam.transform.rotation;
 
+		var qy = Quaternion.AngleAxis(RotY, Vector3.ProjectOnPlane(-cam.transform.right, Vector3.up));
+		var xzFwd = Vector3.ProjectOnPlane (cam.transform.forward, Vector3.up);
+		var xzFwdAfter = Vector3.ProjectOnPlane (qy * cam.transform.forward, Vector3.up);
+		// would be <90, but Vector3.Angle seems to return 90 for zero vectors,
+		// this way no need to handle the vertical corner case where projections approach zero
+		if (Vector3.Angle (xzFwd, xzFwdAfter) < 100f) {
+			cam.transform.rotation = qy * cam.transform.rotation;
+
+		}
+		if (Input.GetKeyDown(KeyCode.P)) print (Vector3.Angle (Vector3.zero, Vector3.zero));
 //		var q = Quaternion.AngleAxis(RotX, Vector3.up);
 //		cam.transform.rotation = q * Quaternion.AngleAxis(RotY, q * Vector3.left) *  cam.transform.rotation;
+		RaycastHit hit;
+		if (Physics.SphereCast (transform.position, sphereRadius, Vector3.down, out hit, sphereDistance)) {
+			grounded = true;
+		} else {
+			grounded = false;
+		}
+		if (grounded) {
+			if (Input.GetKeyDown (KeyCode.Space)) {
+				rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+			}
+		}
 	}
 	
 	// Update is called once per frame
@@ -42,9 +70,18 @@ public class NewBehaviourScript : MonoBehaviour {
 		float MoveX = Input.GetAxis ("Horizontal");
 		float MoveZ = Input.GetAxis ("Vertical");
 
-		var aa = (cam.transform.right * MoveX + cam.transform.forward * MoveZ).normalized * movePower * Time.deltaTime;
+		var XZForward = Vector3.ProjectOnPlane (cam.transform.forward, Vector3.up);
+		var XZRight = Vector3.ProjectOnPlane (cam.transform.right, Vector3.up);
 
+		var aa = (XZRight * MoveX + XZForward * MoveZ).normalized * movePower * Time.deltaTime;
 
-		rb.velocity = new Vector3 (aa.x, rb.velocity.y, aa.z);
+		var newVelocity = rb.velocity + aa;
+
+		newVelocity = Vector3.ClampMagnitude(newVelocity, grounded ? groundSpeedLimit : airSpeedLimit);
+
+		rb.velocity = newVelocity;
+	}
+	void OnDrawGizmos(){
+		Gizmos.DrawSphere (transform.position - transform.up * sphereDistance, sphereRadius);
 	}
 }
