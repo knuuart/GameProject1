@@ -10,9 +10,10 @@ public class TeleportationV2 : MonoBehaviour {
     public Collider objectCollider, ignoredBlueCollider, ignoredOrangeCollider, portalCollider;
 	Rigidbody rb;
 	ExtendedFlycam efc;
-	playerBehaviourScript pbs;
+	NewBehaviourScript nbs;
     bool inBlueTrigger, inOrangeTrigger;
     Transform portal1, portal2;
+	Camera playerCam;
 
     [Header("Velocity Values")]
     public Vector3 velocity;
@@ -54,7 +55,7 @@ public class TeleportationV2 : MonoBehaviour {
 		sp = GameObject.FindGameObjectWithTag("Player").GetComponent<ShootPortal> ();
         rb = GetComponent<Rigidbody>();
         efc = GetComponent<ExtendedFlycam> ();
-		pbs = GetComponent<playerBehaviourScript> ();
+		nbs = GetComponent<NewBehaviourScript> ();
     }
     private void OnTriggerExit(Collider other) {
         if (sp.behindBlue != null && sp.behindOrange != null) {
@@ -134,9 +135,8 @@ public class TeleportationV2 : MonoBehaviour {
 //				Quaternion newRotation = Portal.QuaternionFromMatrix(inversionMatrix) * efc.cameraOffset.rotation;
 //				efc.cameraOffset.rotation = portal2.rotation * newRotation;
 
-                Quaternion newRotation = Portal.QuaternionFromMatrix(inversionMatrix) * transform.rotation;
-//                transform.rotation = portal2.rotation * newRotation;
-				pbs.SetRotation(portal2.rotation * newRotation);
+				Quaternion newRotation = Portal.QuaternionFromMatrix(inversionMatrix) * nbs.cam.transform.rotation;
+				nbs.cam.transform.rotation = portal2.rotation * newRotation;
             } else {
                 Quaternion newRotation = Portal.QuaternionFromMatrix(inversionMatrix) * transform.rotation;
                 transform.rotation = portal2.rotation * newRotation;
