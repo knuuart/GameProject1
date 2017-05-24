@@ -54,22 +54,25 @@ public class NewPlayerBehaviour : MonoBehaviour {
 		//		var q = Quaternion.AngleAxis(RotX, Vector3.up);
 		//		cam.transform.rotation = q * Quaternion.AngleAxis(RotY, q * Vector3.left) *  cam.transform.rotation;
 		RaycastHit hit;
-		if (Physics.SphereCast (transform.position, sphereRadius, Vector3.down, out hit, sphereDistance)) {
+		if (Physics.SphereCast (transform.position, sphereRadius, Vector3.down, out hit, sphereDistance) && rb.velocity.y >= -5f) {
 			grounded = true;
 		} else {
 			grounded = false;
 		}
 		if (grounded) {
 			if (Input.GetKeyDown (KeyCode.Space)) {
-				rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-			}
+                rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            }
 		}
 		if (grounded == false) {
 			movePower = airPower;
 		} else {
 			movePower = groundPower;
 		}
-	}
+        if (Input.GetKeyDown(KeyCode.End)) {
+            Cursor.lockState = Cursor.lockState == CursorLockMode.Locked ? CursorLockMode.None : CursorLockMode.Locked;
+        }
+    }
 
 	// Update is called once per frame
 	void FixedUpdate () {
