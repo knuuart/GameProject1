@@ -11,13 +11,16 @@ public class playerBehaviourScript : MonoBehaviour {
     public bool mInvert;
     public float maxY = 60f;
     public float minY = -60f;
+    public float groundSpeedLimit;
+    public float airSpeedLimit;
 	public float defaultRotation = 0f, rotationSmooth = 0.1f;
     public Transform cameraOffset, cameraTransform;
 
+    public bool grounded;
 
 
-    public float RotX;
-    public float RotY;
+    float RotX;
+    float RotY;
 
     public Camera cam;
     Rigidbody rb;
@@ -39,8 +42,6 @@ public class playerBehaviourScript : MonoBehaviour {
 	
 	
 	void Update () {
-		transform.rotation = Quaternion.Slerp (Quaternion.Euler (transform.localEulerAngles), Quaternion.Euler (defaultRotation, 
-			transform.localEulerAngles.y, defaultRotation), Time.time * rotationSmooth);
         if (Input.GetKeyDown(KeyCode.End)) {
             Cursor.lockState = Cursor.lockState == CursorLockMode.Locked ? CursorLockMode.None : CursorLockMode.Locked;
         }
@@ -53,10 +54,10 @@ public class playerBehaviourScript : MonoBehaviour {
     private void FixedUpdate() {
 
 		//Rotates the player upright when stepping out of a portal in an angle etc.
-//		if (transform.localRotation.x != defaultRotation) {
-//			transform.rotation = Quaternion.Slerp (Quaternion.Euler (transform.localEulerAngles), Quaternion.Euler (defaultRotation, 
-//				transform.localEulerAngles.y, defaultRotation), Time.time * rotationSmooth);
-//		}
+		//if (transform.localRotation.x != defaultRotation) {
+			/*transform.rotation = Quaternion.Slerp (Quaternion.Euler (transform.localEulerAngles), Quaternion.Euler (defaultRotation, 
+				transform.localEulerAngles.y, defaultRotation), Time.time * rotationSmooth);
+		}*/
 
 
 		//The most important setting
@@ -75,15 +76,21 @@ public class playerBehaviourScript : MonoBehaviour {
 		RotY = Mathf.Clamp (RotY, minY, maxY);
 
 		Vector3 oldT = cam.transform.localEulerAngles;
-		cam.transform.localEulerAngles = new Vector3 (-RotY, oldT.y);
+		cam.transform.localEulerAngles = new Vector3 (-RotY, 0f, 0f);
 
-		transform.localEulerAngles = new Vector3 (transform.localEulerAngles.x, 
+		transform.localEulerAngles = new Vector3 (oldT.x, 
 			RotX, 
-			transform.localEulerAngles.z);
+			oldT.z);
 
 		var aa = (transform.right * MoveX + transform.forward * MoveZ).normalized * movePower * Time.deltaTime;
 
-		rb.velocity = new Vector3 (aa.x, rb.velocity.y, aa.z);
+        var newVelocity = rb.velocity + aa;
 
-	}
+        newVelocity = Vector3.ClampMagnitude(newVelocity, grounded ? groundSpeedLimit : airSpeedLimit);
+
+        //rb.velocity = new Vector3 (aa.x, rb.velocity.y, aa.z);
+        //rb.velocity += aa;
+        rb.velocity = newVelocity;
+
+    }
 }
