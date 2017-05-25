@@ -19,7 +19,6 @@ public class TeleportationV2 : MonoBehaviour {
     public Vector3 velocity;
     public float velocityMagnitude;
 
-    
     private void OnTriggerStay(Collider other) {
         if (sp.behindBlue != null && sp.behindOrange != null) {
 
@@ -29,10 +28,9 @@ public class TeleportationV2 : MonoBehaviour {
 				Physics.IgnoreCollision(objectCollider, ignoredBlueCollider);
 //				Physics.IgnoreCollision(objectCollider, ignoredOrangeCollider);
 
-                PortalCollision(bluePortalCollider, bluePortal.transform, orangePortal.transform);
+                PortalCollision(bluePortal.transform, orangePortal.transform);
                 //inBlueTrigger = true; // poista boolit, laita triggerit antamaan arvot updatessa juoksevaan teleporttifunktioon?
                 //PortalCollision(other, bluePortal.transform, orangePortal.transform);
-
             }
             if (other.tag == "OrangeTrigger") {
                 orangePortalCollider = other.GetComponent<Collider>();
@@ -40,14 +38,12 @@ public class TeleportationV2 : MonoBehaviour {
 				Physics.IgnoreCollision(objectCollider, ignoredOrangeCollider);
 //				Physics.IgnoreCollision(objectCollider, ignoredBlueCollider);
 
-                PortalCollision(orangePortalCollider, orangePortal.transform, bluePortal.transform);
+                PortalCollision(orangePortal.transform, bluePortal.transform);
                 //inOrangeTrigger = true;
                 //PortalCollision(other, orangePortal.transform, bluePortal.transform);
 
             }
         }
-        
-
     }
 
     void Start () {
@@ -103,7 +99,9 @@ public class TeleportationV2 : MonoBehaviour {
         //}
     }
 
-	void PortalCollision(Collider other, Transform portal1, Transform portal2){
+	//void PortalCollision(Collider other, Transform portal1, Transform portal2){
+    void PortalCollision(Transform portal1, Transform portal2){
+
         // Laskee etäisyyttä portaalista ja muuttaa sen vektorin portaalin koordinaatteihin
         Vector3 offset = transform.position - portal1.transform.position;
         Vector3 offsetInPortal1Coords = portal1.InverseTransformVector(offset);

@@ -63,18 +63,14 @@ public class NewPlayerBehaviour : MonoBehaviour {
 			if (Input.GetKeyDown (KeyCode.Space)) {
                 rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             }
-		}
-		if (grounded == false) {
-			movePower = airPower;
-		} else {
-			movePower = groundPower;
-		}
+            movePower = groundPower;
+        } else {
+            movePower = airPower;
+        }
         if (Input.GetKeyDown(KeyCode.End)) {
             Cursor.lockState = Cursor.lockState == CursorLockMode.Locked ? CursorLockMode.None : CursorLockMode.Locked;
         }
     }
-
-	// Update is called once per frame
 	void FixedUpdate () {
 		float MoveX = Input.GetAxis ("Horizontal");
 		float MoveZ = Input.GetAxis ("Vertical");
