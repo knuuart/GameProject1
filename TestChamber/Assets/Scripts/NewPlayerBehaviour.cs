@@ -31,11 +31,19 @@ public class NewPlayerBehaviour : MonoBehaviour {
 		if (mInvert) {
 			mouseSensitivityY = mouseSensitivityY * -1;
 		}
+        var angles = cam.transform.localEulerAngles;
+        angles.z = 0f;
+		cam.transform.rotation = Quaternion.Slerp (cam.transform.rotation, Quaternion.Euler (angles), Time.time * rotationSmooth);
+        
+        if (Vector3.Angle(cam.transform.forward, Vector3.up) < .5f) {
+            cam.transform.Rotate(cam.transform.right, .5f, Space.World);
+        }
 
-		cam.transform.rotation = Quaternion.Slerp (Quaternion.Euler (cam.transform.localEulerAngles), Quaternion.Euler (cam.transform.localEulerAngles.x, 
-			cam.transform.localEulerAngles.y, defaultRotation), Time.time * rotationSmooth);
+        if (Vector3.Angle(cam.transform.forward, Vector3.down) < .5f) {
+            cam.transform.Rotate(cam.transform.right, -.5f, Space.World);
+        }
 
-		var RotX = Input.GetAxis ("Mouse X") * mouseSensitivity;
+        var RotX = Input.GetAxis ("Mouse X") * mouseSensitivity;
 		var RotY = Input.GetAxis ("Mouse Y") * mouseSensitivityY;
 		// RotY = Mathf.Clamp (RotY, minY, maxY);
 		var qx = Quaternion.AngleAxis(RotX, Vector3.up);
@@ -46,9 +54,8 @@ public class NewPlayerBehaviour : MonoBehaviour {
 		var xzFwdAfter = Vector3.ProjectOnPlane (qy * cam.transform.forward, Vector3.up);
 		// would be <90, but Vector3.Angle seems to return 90 for zero vectors,
 		// this way no need to handle the vertical corner case where projections approach zero
-		if (Vector3.Angle (xzFwd, xzFwdAfter) < 100f) {
+		if (Vector3.Angle (xzFwd, xzFwdAfter) < 90f && xzFwdAfter.magnitude > 0.001f) {
 			cam.transform.rotation = qy * cam.transform.rotation;
-
 		}
 		//if (Input.GetKeyDown(KeyCode.P)) print (Vector3.Angle (Vector3.zero, Vector3.zero)); // Angle between two zero vectors is 90 :thinking:
 		//		var q = Quaternion.AngleAxis(RotX, Vector3.up);
