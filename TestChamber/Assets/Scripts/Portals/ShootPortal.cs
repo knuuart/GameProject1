@@ -46,14 +46,16 @@ public class ShootPortal : MonoBehaviour {
 				portal.transform.rotation = Quaternion.LookRotation (hit.normal, Vector3.ProjectOnPlane(ray.direction, hit.normal)); 
 			}
             if (portal == bluePortal) {
-                if(tp.ignoredBlueCollider != null) {
+                if (tp.ignoredBlueCollider != null) {
                     ResetCollision(tp.objectCollider, tp.ignoredBlueCollider);
+                    ResetCollision(tp.objectCollider, tp.currentBlue);
                 }
                 behindBlue = hit.collider.gameObject;
             }
             if (portal == orangePortal) {
                 if(tp.ignoredOrangeCollider != null) {
                     ResetCollision(tp.objectCollider, tp.ignoredOrangeCollider);
+                    ResetCollision(tp.objectCollider, tp.currentOrange);
                 }
                 behindOrange = hit.collider.gameObject;
             }
