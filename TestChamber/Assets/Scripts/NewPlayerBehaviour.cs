@@ -61,7 +61,7 @@ public class NewPlayerBehaviour : MonoBehaviour {
 		//		var q = Quaternion.AngleAxis(RotX, Vector3.up);
 		//		cam.transform.rotation = q * Quaternion.AngleAxis(RotY, q * Vector3.left) *  cam.transform.rotation;
 		RaycastHit hit;
-		if (Physics.SphereCast (transform.position, sphereRadius, Vector3.down, out hit, sphereDistance) && rb.velocity.y >= -5f) {
+		if (Physics.SphereCast (transform.position, sphereRadius, Vector3.down, out hit, sphereDistance) && (rb.velocity.y > -5 && rb.velocity.y < 5)) {
 			grounded = true;
 		} else {
 			grounded = false;

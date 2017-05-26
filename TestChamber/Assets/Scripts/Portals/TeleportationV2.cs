@@ -23,30 +23,34 @@ public class TeleportationV2 : MonoBehaviour {
 
     private void OnTriggerStay(Collider other) {
         if (sp.behindBlue != null && sp.behindOrange != null) {
+            ignoredBlueCollider = behindBlueCollider;
+            ignoredOrangeCollider = behindOrangeCollider;
             //behindBlueCollider = sp.behindBlue.GetComponent<Collider>();
             //behindOrangeCollider = sp.behindOrange.GetComponent<Collider>();
             if (other.tag == "BlueTrigger") {
                 //ignoredBlueCollider = sp.behindBlue.GetComponent<Collider>();
-                //Physics.IgnoreCollision(objectCollider, ignoredBlueCollider);
                 //				Physics.IgnoreCollision(objectCollider, ignoredOrangeCollider);
-                ignoredBlueCollider = behindBlueCollider;
-                ignoredOrangeCollider = behindOrangeCollider;
+                
+
+                //Physics.IgnoreCollision(objectCollider, ignoredBlueCollider);
+
                 if (ignoredBlueCollider != null) {
                     PortalCollision(bluePortal.transform, orangePortal.transform, ignoredBlueCollider, ignoredOrangeCollider);
-                    currentBlue = ignoredBlueCollider;
+                    //currentBlue = ignoredBlueCollider;
                 }
                 //inBlueTrigger = true; // poista boolit, laita triggerit antamaan arvot updatessa juoksevaan teleporttifunktioon?
                 //PortalCollision(other, bluePortal.transform, orangePortal.transform);
             }
             if (other.tag == "OrangeTrigger") {
                 //ignoredOrangeCollider = sp.behindOrange.GetComponent<Collider>();
-                //Physics.IgnoreCollision(objectCollider, ignoredOrangeCollider);
+
                 //				Physics.IgnoreCollision(objectCollider, ignoredBlueCollider);
-                ignoredOrangeCollider = behindOrangeCollider;
-                ignoredBlueCollider = behindBlueCollider;
+                //ignoredOrangeCollider = behindOrangeCollider;
+                //Physics.IgnoreCollision(objectCollider, ignoredOrangeCollider);
+                //ignoredBlueCollider = behindBlueCollider;
                 if (ignoredOrangeCollider != null) {
                     PortalCollision(orangePortal.transform, bluePortal.transform, ignoredOrangeCollider, ignoredBlueCollider);
-                    currentOrange = ignoredOrangeCollider;
+                    //currentOrange = ignoredOrangeCollider;
                 }
                 //inOrangeTrigger = true;
                 //PortalCollision(other, orangePortal.transform, bluePortal.transform);
@@ -112,6 +116,12 @@ public class TeleportationV2 : MonoBehaviour {
 
     void PortalCollision(Transform portal1, Transform portal2, Collider behindPortal1, Collider behindPortal2){
         Physics.IgnoreCollision(objectCollider, behindPortal1);
+        if(behindPortal1 == ignoredBlueCollider) {
+            currentBlue = ignoredBlueCollider;
+        }
+        if(behindPortal1 == ignoredOrangeCollider) {
+            currentOrange = ignoredOrangeCollider;
+        }
         // Laskee etäisyyttä portaalista ja muuttaa sen vektorin portaalin koordinaatteihin
         Vector3 offset = transform.position - portal1.transform.position;
         Vector3 offsetInPortal1Coords = portal1.InverseTransformVector(offset);
