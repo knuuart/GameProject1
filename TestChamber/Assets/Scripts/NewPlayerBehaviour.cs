@@ -33,7 +33,7 @@ public class NewPlayerBehaviour : MonoBehaviour {
 		}
         var angles = cam.transform.localEulerAngles;
         angles.z = 0f;
-		cam.transform.rotation = Quaternion.Slerp (cam.transform.rotation, Quaternion.Euler (angles), Time.time * rotationSmooth);
+		cam.transform.rotation = Quaternion.Slerp (cam.transform.rotation, Quaternion.Euler (angles), rotationSmooth * Time.deltaTime);
         
         if (Vector3.Angle(cam.transform.forward, Vector3.up) < .5f) {
             cam.transform.Rotate(cam.transform.right, .5f, Space.World);
