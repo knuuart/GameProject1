@@ -11,7 +11,7 @@ public class NewPlayerBehaviour : MonoBehaviour {
 	public bool mInvert;
 	public float maxY = 60f;
 	public float minY = -60f;
-	public float defaultRotation = 0f, rotationSmooth = 0.1f;
+	public float defaultRotation = 0f, rotationSpeed = 0.1f;
 	public float groundSpeedLimit;
 	public float airSpeedLimit;
 	public bool grounded;
@@ -33,8 +33,9 @@ public class NewPlayerBehaviour : MonoBehaviour {
 		}
         var angles = cam.transform.localEulerAngles;
         angles.z = 0f;
-		cam.transform.rotation = Quaternion.Slerp (cam.transform.rotation, Quaternion.Euler (angles), rotationSmooth * Time.deltaTime);
-        
+        cam.transform.rotation = Quaternion.Slerp(cam.transform.rotation, Quaternion.Euler(angles), rotationSpeed * Time.deltaTime);
+        //cam.transform.rotation = Quaternion.RotateTowards (cam.transform.rotation, Quaternion.Euler (angles), rotationSpeed * Time.deltaTime);
+
         if (Vector3.Angle(cam.transform.forward, Vector3.up) < .5f) {
             cam.transform.Rotate(cam.transform.right, .5f, Space.World);
         }

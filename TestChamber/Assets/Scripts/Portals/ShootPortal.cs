@@ -15,10 +15,10 @@ public class ShootPortal : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetMouseButtonDown(0)) {
+        if (Input.GetButtonDown("ShootGreenPortal")) {
             CreatePortal(bluePortal);
         }
-        if (Input.GetMouseButtonDown(1)) {
+        if (Input.GetButtonDown("ShootPinkPortal")) {
             CreatePortal(orangePortal);
         }
         if(behindBlue != null && behindOrange != null) {
