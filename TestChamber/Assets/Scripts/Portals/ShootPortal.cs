@@ -8,6 +8,7 @@ public class ShootPortal : MonoBehaviour {
 	public GameObject behindBlue, behindOrange;
     TeleportationV2 tp;
     public float minDistance;
+    public LayerMask portalableSurface;
 
     // Use this for initialization
     void Awake () {
@@ -38,7 +39,7 @@ public class ShootPortal : MonoBehaviour {
         
         Ray ray = Camera.main.ScreenPointToRay(new Vector3(x, y));
         RaycastHit hit;
-        if(Physics.Raycast(ray, out hit) && !hit.rigidbody) {
+        if(Physics.Raycast(ray, out hit, portalableSurface) && !hit.rigidbody) {
             var otherPortal = portal == orangePortal ? bluePortal : orangePortal;
             var portalDistance = Vector3.Distance(hit.point, otherPortal.transform.position);
 
