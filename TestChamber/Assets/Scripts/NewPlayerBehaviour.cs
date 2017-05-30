@@ -9,8 +9,6 @@ public class NewPlayerBehaviour : MonoBehaviour {
     public float mouseSensitivity;
     private float mouseSensitivityY;
     public bool mInvert;
-    public float maxY = 60f;
-    public float minY = -60f;
     public float defaultRotation = 0f, rotationSpeed = 0.1f;
     public float groundSpeedLimit;
     public float airSpeedLimit;
@@ -20,17 +18,26 @@ public class NewPlayerBehaviour : MonoBehaviour {
     float movePower;
     public float sphereRadius, sphereDistance, jumpForce;
 
+    private Vector3 playerpos;
+
     // Use this for initialization
     void Awake() {
         rb = GetComponent<Rigidbody>();
         mouseSensitivityY = mouseSensitivity;
         Cursor.lockState = CursorLockMode.Locked;
+        playerpos = transform.position;
 
     }
     void Update() {
-        if (mInvert) {
-            mouseSensitivityY = mouseSensitivityY * -1;
+
+        //DEMO
+
+        if (transform.position.y < -5) { transform.position = playerpos; }
+
+        if (Input.GetKeyDown(KeyCode.R)) {
+            transform.position = playerpos;
         }
+        
         var angles = cam.transform.localEulerAngles;
         angles.z = 0f;
         cam.transform.rotation = Quaternion.Slerp(cam.transform.rotation, Quaternion.Euler(angles), rotationSpeed * Time.deltaTime);
@@ -46,6 +53,20 @@ public class NewPlayerBehaviour : MonoBehaviour {
 
         var RotX = Input.GetAxis("Mouse X") * mouseSensitivity;
         var RotY = Input.GetAxis("Mouse Y") * mouseSensitivityY;
+
+
+        if (mInvert && mouseSensitivityY > 0) {
+            mouseSensitivityY *= -1;
+        }
+
+        if (!mInvert && mouseSensitivityY < 0) {
+            mouseSensitivityY *= -1;
+        }
+
+        if (Input.GetKeyDown(KeyCode.I)) {
+            mInvert = !mInvert;
+        }
+
         // RotY = Mathf.Clamp (RotY, minY, maxY);
         var qx = Quaternion.AngleAxis(RotX, Vector3.up);
         cam.transform.rotation = qx * cam.transform.rotation;
