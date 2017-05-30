@@ -7,7 +7,9 @@ public class ShootPortal : MonoBehaviour {
     public GameObject orangePortal, bluePortal;
 	public GameObject behindBlue, behindOrange;
     TeleportationV2 tp;
-    public float minDistance;
+    public float minDistance, yMin = 1.6f, xMin = 0.9f;
+    float yDifference, xDifference;
+    Vector3 newPos;
 
     // Use this for initialization
     void Awake () {
@@ -32,6 +34,39 @@ public class ShootPortal : MonoBehaviour {
         Physics.IgnoreCollision(objectCollider, ignoredCollider, false);
     }
 
+    Vector3 PortalPosition(RaycastHit hit) {
+        var localHitPoint = hit.transform.InverseTransformPoint(hit.point);
+        Vector3 lossyScale = hit.transform.lossyScale;
+        localHitPoint.x *= lossyScale.x;
+        localHitPoint.y *= lossyScale.y;
+        //        localHitPoint.z *= lossyScale.z;
+        //print("localhitX:" + Mathf.Abs(localHitPoint.x));
+        //print("localhitY:" + Mathf.Abs(localHitPoint.y));
+        float yMax = 0.5f * lossyScale.y;
+        float xMax = 0.5f * lossyScale.x;
+        if (Mathf.Abs(localHitPoint.y) > (yMax - yMin)) {
+            yDifference = (yMax - yMin) - (Mathf.Abs(localHitPoint.y));
+        } else {
+            yDifference = 0;
+        }
+        if (Mathf.Abs(localHitPoint.x) > (xMax - xMin)) {
+            xDifference = (xMax - xMin) - (Mathf.Abs(localHitPoint.x));
+        } else {
+            xDifference = 0;
+        }
+        Vector3 differences = new Vector3(xDifference, yDifference, 0);
+        if (localHitPoint.x < 0) {
+            differences.x *= -1;
+        }
+        if (localHitPoint.y < 0) {
+            differences.y *= -1;
+        }
+        Vector3 newLocal = localHitPoint + differences;
+        newLocal = new Vector3(newLocal.x / lossyScale.x, newLocal.y / lossyScale.y, newLocal.z);
+        Vector3 newGlobal = hit.transform.TransformPoint(newLocal);
+        return newGlobal;
+    }
+
     public bool CreatePortal(GameObject portal) {
         int x = Screen.width / 2;
         int y = Screen.height / 2;
@@ -42,15 +77,15 @@ public class ShootPortal : MonoBehaviour {
             var otherPortal = portal == orangePortal ? bluePortal : orangePortal;
             var portalDistance = Vector3.Distance(hit.point, otherPortal.transform.position);
 
-            print("Hello");
+            //print("Hello");
 
             if (portalDistance < minDistance) { return false; }
 
-            print("Hello Again");
+            //print("Hello Again");
 
-            portal.transform.position = hit.point;
+            portal.transform.position = PortalPosition(hit);
 
-			if (Mathf.Abs (hit.normal.y) < 0.85f) {
+            if (Mathf.Abs (hit.normal.y) < 0.85f) {
 				portal.transform.rotation = Quaternion.LookRotation (hit.normal, Vector3.up);
 			} else {
 				portal.transform.rotation = Quaternion.LookRotation (hit.normal, Vector3.ProjectOnPlane(ray.direction, hit.normal)); 
@@ -73,4 +108,5 @@ public class ShootPortal : MonoBehaviour {
             return true;
         } else { return false; }
     }
+    
 }
