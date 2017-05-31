@@ -8,7 +8,9 @@ public class escapeMenu : MonoBehaviour {
     [Header("References")]
     public GameObject escMenu;
     public GameObject optionsMenu;
+    public Dropdown QualitySettingsDrop;
     public Slider mouseSensitivitySlider;
+    public Toggle mouseInvert;
     [Space(10)]
     [Header("Player")]
     public GameObject player;
@@ -96,6 +98,15 @@ public class escapeMenu : MonoBehaviour {
         
     }
 
+    public void MouseInvert() {
+        sNPB.mInvert = !mouseInvert.isOn;
+    }
+
+    public void QualiySettings() {
+
+        var q = QualitySettingsDrop.value;
+    }
+   
     private void OnApplicationFocus(bool focus) {
 
         windowFocused = focus;
