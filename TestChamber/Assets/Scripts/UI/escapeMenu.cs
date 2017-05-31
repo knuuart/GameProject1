@@ -5,14 +5,31 @@ using UnityEngine.UI;
 
 public class escapeMenu : MonoBehaviour {
 
+    [Header("References")]
     public GameObject escMenu;
     public GameObject optionsMenu;
+    public Slider mouseSensitivitySlider;
+    [Space(10)]
+    [Header("Player")]
+    public GameObject player;
+    [Space(10)]
+    [Header("Menu Visibility")]
     public bool windowFocused;
     public bool menusOpen;
     public bool menuVisible;
     public bool optVisible;
 
+    NewPlayerBehaviour sNPB;
+
     private void Start() {
+
+        if (player != null) {
+            sNPB = player.GetComponent<NewPlayerBehaviour>();
+        }
+
+        if (player = null) {
+            Debug.LogError("Player reference missing in Escape Menu Handler");
+        }
 
         Cursor.lockState = CursorLockMode.Locked;
 
@@ -69,6 +86,14 @@ public class escapeMenu : MonoBehaviour {
             optVisible = false;
             menuVisible = true;
         }
+    }
+
+    public void MouseSensChanged() {
+
+        var value = mouseSensitivitySlider.value;
+
+        sNPB.mouseSensitivity = value;     
+        
     }
 
     private void OnApplicationFocus(bool focus) {
