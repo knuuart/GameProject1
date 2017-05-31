@@ -144,10 +144,11 @@ public class TeleportationV2 : MonoBehaviour {
         Matrix4x4 inversionMatrix = targetFlipRotation * portal1.worldToLocalMatrix;
 
         if (offsetInPortal1Coords.z < 0.018f) {
+            Physics.IgnoreCollision(objectCollider, behindPortal1, false);
             Physics.IgnoreCollision(objectCollider, behindPortal2);
-            if (currentBlue != currentOrange) {
-                Physics.IgnoreCollision(objectCollider, behindPortal1, false);
-            }
+            //if (currentBlue != currentOrange) {
+            //    Physics.IgnoreCollision(objectCollider, behindPortal1, false);
+            //}
 
             if (exitVelocity.y < minY && (portal2.forward == Vector3.up)) {
                 exitVelocity = exitVelocity + new Vector3(0, minY - exitVelocity.y, 0);
