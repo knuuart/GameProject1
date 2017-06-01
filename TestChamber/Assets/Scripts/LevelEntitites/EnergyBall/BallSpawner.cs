@@ -6,7 +6,7 @@ public class BallSpawner : MonoBehaviour {
     public GameObject energyBall;
     public bool ballAlive, ballUsed;
     EnergyBall eb;
-    float timer;
+    float timer, recharge = 2f;
     public float lifeTime;
 
 	void Start () {
@@ -15,7 +15,7 @@ public class BallSpawner : MonoBehaviour {
 	void Update () {
         timer += Time.deltaTime;
         if(ballUsed == false) {
-            if (timer > lifeTime + 3f) {
+            if (timer > lifeTime + recharge) {
                 ballAlive = false;
                 timer -= timer;
             }

@@ -32,11 +32,11 @@ public class NewPlayerBehaviour : MonoBehaviour {
 
         //DEMO
 
-        if (transform.position.y < -5) { transform.position = playerpos; }
-
-        if (Input.GetKeyDown(KeyCode.R)) {
-            transform.position = playerpos;
-        }
+//        if (transform.position.y < -5) { transform.position = playerpos; }
+//
+//        if (Input.GetKeyDown(KeyCode.R)) {
+//            transform.position = playerpos;
+//        }
         
         var angles = cam.transform.localEulerAngles;
         angles.z = 0f;
