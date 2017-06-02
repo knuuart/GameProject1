@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
+[SelectionBase]
 public class Portal : MonoBehaviour
 {
     #region vars
@@ -24,17 +25,11 @@ public class Portal : MonoBehaviour
     #endregion
     #region logic
     public static Quaternion QuaternionFromMatrix(Matrix4x4 m) { return Quaternion.LookRotation(m.GetColumn(2), m.GetColumn(1)); }
-    Vector4 PosToV4(Vector3 v) { return new Vector4(v.x, v.y, v.z, 1.0f); }
-    Vector3 ToV3(Vector4 v) { return new Vector3(v.x, v.y, v.z); }
+    public static Vector4 PosToV4(Vector3 v) { return new Vector4(v.x, v.y, v.z, 1.0f); }
+    public static Vector3 ToV3(Vector4 v) { return new Vector3(v.x, v.y, v.z); }
 
     public void LateUpdate()
     {
-        //change portal camera depth values to make sure that the correct camera is rendered on top
-        float distance = Vector3.Distance(mainCameraTransform.position, transform.position);
-        float distance2 = Vector3.Distance(mainCameraTransform.position, target.transform.position);
-
-        portalCamera.depth = distance < distance2 ? -1 : -2;
-
         // The rotation and projection code taken from: https://github.com/pr0g/unity-portal-rendering/tree/master
         // Thanks a lot pr0g!
 

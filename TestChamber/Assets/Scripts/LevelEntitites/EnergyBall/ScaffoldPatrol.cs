@@ -15,7 +15,7 @@ public class ScaffoldPatrol : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
 		if (bs.ballUsed) {
 			MoveToPoint();		
 		}
@@ -27,14 +27,24 @@ public class ScaffoldPatrol : MonoBehaviour {
 		direction = waypoints[targetIndex].position - transform.position;
 
 		if(direction.magnitude < tolerance){
-			StartCoroutine (WaitAndContinue());
 			targetIndex++;
 			if(targetIndex == waypoints.Length){
 				targetIndex = 0;
 			}
 		}
 	}
-	IEnumerator WaitAndContinue(){
-		yield return new WaitForSeconds (1.5f);
+	IEnumerator Wait(){
+		yield return new WaitForSeconds (2f);
+
+	}
+
+	void OnCollisionStay(Collision c){
+		GameObject go = c.gameObject;
+		Vector3 direction;
+		direction = waypoints[targetIndex].position - go.transform.position;
+		if (bs.ballUsed) {
+			go.transform.position = Vector3.MoveTowards(go.transform.position, waypoints[targetIndex].position, Time.deltaTime * speed);
+				
+		}
 	}
 }
