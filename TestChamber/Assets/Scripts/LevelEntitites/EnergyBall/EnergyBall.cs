@@ -7,6 +7,11 @@ public class EnergyBall : MonoBehaviour {
     public float lifeTime, timer;
     GameObject spawner;
     BallSpawner bs;
+    Renderer rend;
+    public Color pink, green;
+    float duration = 4f, t = 0;
+    Color lerpedColor;
+    bool flag;
 
 	// Use this for initialization
 	void Start () {
@@ -15,6 +20,7 @@ public class EnergyBall : MonoBehaviour {
         rb = gameObject.GetComponent<Rigidbody>();
         lifeTime = bs.lifeTime;
         rb.AddForce(spawner.transform.forward, ForceMode.Impulse);
+        rend = GetComponent<Renderer>();
     }
 
     // Update is called once per frame
@@ -23,6 +29,19 @@ public class EnergyBall : MonoBehaviour {
         
         if (timer > lifeTime) {
             DestroyBall();
+        }
+        lerpedColor = Color.Lerp(green, pink, t);
+        rend.material.color = lerpedColor;
+        if (flag) {
+            t -= Time.deltaTime / duration;
+            if(t < 0.1f) {
+                flag = false;
+            } 
+        } else {
+            t += Time.deltaTime / duration;
+            if (t > 0.9f) {
+                flag = true;
+            }
         }
     }
     public void DestroyBall() {

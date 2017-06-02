@@ -82,7 +82,7 @@ public class ShootPortal : MonoBehaviour {
             if (portalDistance < minDistance) { return false; }
 
             //print("Hello Again");
-
+            portal.SetActive(true);
             portal.transform.position = PortalPosition(hit);
 
             // Alla pois kommentoituna koodi joka yrittää estää portaaleja menemästä päällekkäin, huonosti kirjoitettu ja toiminta jotakin sinnepäin
@@ -140,7 +140,6 @@ public class ShootPortal : MonoBehaviour {
                 }
                 behindOrange = hit.collider.gameObject;
             }
-            //portal.SetActive(true);
             return true;
         } else { return false; }
     }
