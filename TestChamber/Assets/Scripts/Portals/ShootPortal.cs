@@ -91,21 +91,28 @@ public class ShootPortal : MonoBehaviour {
 //            Vector3 otherOffset = otherPortal.transform.InverseTransformVector(offset);
 //            Vector3 newLocal = otherOffset;
 //            if (otherOffset.magnitude < 3.2f && (portal.transform.forward == otherPortal.transform.forward)) {
-//                if (Mathf.Abs(otherOffset.x) < 1.2f) {
-//                    newLocal.y = 3.2f;
-//                    newLocal.x = otherOffset.x * -1;
-//                    if (otherOffset.y > 0) {
-//                        newLocal.y *= -1;
-//                    }
-//                } else if (Mathf.Abs(otherOffset.y) < 1.9f) {
-//                    newLocal.x = 1.8f;
-//                    newLocal.y = otherOffset.y * -1;
-//                    if (otherOffset.x > 0) {
-//                        newLocal.x *= -1;
-//                    }
-//                } else {
-//                    newLocal *= -1;
-//                }
+//				if (Mathf.Abs (otherOffset.x) < 0.8f) {
+//					newLocal.y = otherOffset.y * -1;
+//					newLocal.x = 1.8f;
+//					if (otherOffset.x > 0) {
+//						newLocal.x *= -1;
+//					}
+//				} else if (Mathf.Abs(otherOffset.x) < 1.2f) {
+//					newLocal.y = 3.2f;
+//					newLocal.x = otherOffset.x * -1;
+//					if (otherOffset.y > 0) {
+//						newLocal.y *= -1;
+//					}
+//				} else if (Mathf.Abs(otherOffset.y) < 1.9f) {
+//					newLocal.x = 1.8f;
+//					newLocal.y = otherOffset.y * -1;
+//					if (otherOffset.x > 0) {
+//						newLocal.x *= -1;
+//					}
+//				} else {
+//					newLocal *= -1;
+//				}
+//                
 //                Vector3 newGlobal = otherPortal.transform.TransformPoint(newLocal);
 //                print(otherOffset);
 //                portal.transform.position = newGlobal;
