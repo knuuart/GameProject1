@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CarryObject : MonoBehaviour {
     GameObject carriedObject;
-    public bool carrying;
+    public static bool carrying;
     public float distance, throwForce = 7f, correctionForce = 5f;
     
 	void Start () {
@@ -29,15 +29,20 @@ public class CarryObject : MonoBehaviour {
             //carriedObject.GetComponent<Rigidbody>().MovePosition(Vector3.Lerp(carriedObject.transform.position, targetPosition, Time.deltaTime * 50));
             //carriedObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
             if (Input.GetMouseButtonDown(0)) {
-                carriedObject.GetComponent<Rigidbody>().useGravity = true;
-                carriedObject.GetComponent<Rigidbody>().freezeRotation = false;
-                Physics.IgnoreCollision(GetComponent<Collider>(), carriedObject.GetComponent<Collider>(), false);
-                carriedObject.GetComponent<Rigidbody>().AddForce(Camera.main.transform.forward * throwForce, ForceMode.Impulse);
-                carrying = false;
+                StartCoroutine(ThrowObject());
 
             }
         }
 
+    }
+    IEnumerator ThrowObject() {
+        yield return new WaitForSeconds(0.001f);
+        carriedObject.GetComponent<Rigidbody>().useGravity = true;
+        carriedObject.GetComponent<Rigidbody>().freezeRotation = false;
+        Physics.IgnoreCollision(GetComponent<Collider>(), carriedObject.GetComponent<Collider>(), false);
+        Vector3 projected = Vector3.ProjectOnPlane(Camera.main.transform.forward, Vector3.up);
+        carriedObject.GetComponent<Rigidbody>().AddForce(Camera.main.transform.forward * throwForce, ForceMode.Impulse);
+        carrying = false;
     }
 
     void PickupAndCarry() {

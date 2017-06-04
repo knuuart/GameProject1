@@ -9,19 +9,20 @@ public class ShootPortal : MonoBehaviour {
     TeleportationV2 tp;
     public float minDistance, yMin = 1.6f, xMin = 0.9f;
     float yDifference, xDifference;
-    Vector3 newPos;
+    public LayerMask passRaycast;
 
     // Use this for initialization
     void Awake () {
         tp = GetComponent<TeleportationV2>();
+        passRaycast = ~passRaycast;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetButtonDown("ShootGreenPortal")) {
+        if (Input.GetButtonDown("ShootGreenPortal") && !CarryObject.carrying) {
             CreatePortal(bluePortal);
         }
-        if (Input.GetButtonDown("ShootPinkPortal")) {
+        if (Input.GetButtonDown("ShootPinkPortal") && !CarryObject.carrying) {
             CreatePortal(orangePortal);
         }
         if(behindBlue != null && behindOrange != null) {
@@ -73,7 +74,11 @@ public class ShootPortal : MonoBehaviour {
         
         Ray ray = Camera.main.ScreenPointToRay(new Vector3(x, y));
         RaycastHit hit;
-        if(Physics.Raycast(ray, out hit) && !hit.rigidbody) {
+        if (Physics.Raycast(ray, out hit, 200f, passRaycast)) {//(Physics.Raycast(ray, out hit) && !hit.rigidbody) {
+            if (hit.collider.tag == "NoPortal") {
+                return false;
+            }
+            print(hit.collider.gameObject);
             var otherPortal = portal == orangePortal ? bluePortal : orangePortal;
             var portalDistance = Vector3.Distance(hit.point, otherPortal.transform.position);
 
@@ -86,39 +91,39 @@ public class ShootPortal : MonoBehaviour {
             portal.transform.position = PortalPosition(hit);
 
             // Alla pois kommentoituna koodi joka yrittää estää portaaleja menemästä päällekkäin, huonosti kirjoitettu ja toiminta jotakin sinnepäin
-//            Vector3 hitPoint = hit.point;
-//            Vector3 offset = otherPortal.transform.position - hitPoint; // portal.transform.position;
-//            Vector3 otherOffset = otherPortal.transform.InverseTransformVector(offset);
-//            Vector3 newLocal = otherOffset;
-//            if (otherOffset.magnitude < 3.2f && (portal.transform.forward == otherPortal.transform.forward)) {
-//				if (Mathf.Abs (otherOffset.x) < 0.8f) {
-//					newLocal.y = otherOffset.y * -1;
-//					newLocal.x = 1.8f;
-//					if (otherOffset.x > 0) {
-//						newLocal.x *= -1;
-//					}
-//				} else if (Mathf.Abs(otherOffset.x) < 1.2f) {
-//					newLocal.y = 3.2f;
-//					newLocal.x = otherOffset.x * -1;
-//					if (otherOffset.y > 0) {
-//						newLocal.y *= -1;
-//					}
-//				} else if (Mathf.Abs(otherOffset.y) < 1.9f) {
-//					newLocal.x = 1.8f;
-//					newLocal.y = otherOffset.y * -1;
-//					if (otherOffset.x > 0) {
-//						newLocal.x *= -1;
-//					}
-//				} else {
-//					newLocal *= -1;
-//				}
-//                
-//                Vector3 newGlobal = otherPortal.transform.TransformPoint(newLocal);
-//                print(otherOffset);
-//                portal.transform.position = newGlobal;
-//            } else {
-//                portal.transform.position = PortalPosition(hit);
-//            }
+            //Vector3 hitPoint = hit.point;
+            //Vector3 offset = otherPortal.transform.position - hitPoint; // portal.transform.position;
+            //Vector3 otherOffset = otherPortal.transform.InverseTransformVector(offset);
+            //Vector3 newLocal = otherOffset;
+            //if (otherOffset.magnitude < 3.2f && (portal.transform.forward == otherPortal.transform.forward)) {
+            //    if (Mathf.Abs(otherOffset.x) < 0.8f) {
+            //        newLocal.y = otherOffset.y * -1;
+            //        newLocal.x = 1.8f;
+            //        if (otherOffset.x > 0) {
+            //            newLocal.x *= -1;
+            //        }
+            //    } else if (Mathf.Abs(otherOffset.x) < 1.2f) {
+            //        newLocal.y = 3.2f;
+            //        newLocal.x = otherOffset.x * -1;
+            //        if (otherOffset.y > 0) {
+            //            newLocal.y *= -1;
+            //        }
+            //    } else if (Mathf.Abs(otherOffset.y) < 1.9f) {
+            //        newLocal.x = 1.8f;
+            //        newLocal.y = otherOffset.y * -1;
+            //        if (otherOffset.x > 0) {
+            //            newLocal.x *= -1;
+            //        }
+            //    } else {
+            //        newLocal *= -1;
+            //    }
+
+            //    Vector3 newGlobal = otherPortal.transform.TransformPoint(newLocal);
+            //    print(otherOffset);
+            //    portal.transform.position = newGlobal;
+            //} else {
+            //    portal.transform.position = PortalPosition(hit);
+            //}
 
 
             if (Mathf.Abs (hit.normal.y) < 0.85f) {
