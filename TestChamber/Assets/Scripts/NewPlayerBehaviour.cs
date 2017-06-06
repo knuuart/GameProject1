@@ -62,11 +62,11 @@ public class NewPlayerBehaviour : MonoBehaviour {
         var RotY = Input.GetAxis("Mouse Y") * mouseSensitivityY;
 
 
-        if (mInvert && mouseSensitivityY > 0) {
-            mouseSensitivityY *= -1;
+        if (mInvert) { //&& mouseSensitivityY > 0) {
+            RotY *= -1;
         }
 
-        if (!mInvert && mouseSensitivityY < 0) {
+        if (!mInvert && mouseSensitivityY !=  0) {
             mouseSensitivityY *= -1;
         }
 
