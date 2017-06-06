@@ -8,10 +8,10 @@ public class ScaffoldPatrol : MonoBehaviour {
 	public float tolerance = 0.1f;
 	public int targetIndex = 0;
 	public BallSpawner bs;
-
+    Rigidbody rb;
 	// Use this for initialization
 	void Start () {
-		
+        rb = GetComponent<Rigidbody>();
 	}
 	
 	// Update is called once per frame
@@ -21,8 +21,8 @@ public class ScaffoldPatrol : MonoBehaviour {
 		}
 	}
 	void MoveToPoint(){
-		transform.position = Vector3.MoveTowards(transform.position, waypoints[targetIndex].position, Time.deltaTime * speed);
-
+		//transform.position = Vector3.MoveTowards(transform.position, waypoints[targetIndex].position, Time.deltaTime * speed);
+        rb.MovePosition(Vector3.MoveTowards(transform.position, waypoints[targetIndex].position, Time.deltaTime * speed));
 		Vector3 direction;
 		direction = waypoints[targetIndex].position - transform.position;
 
@@ -33,18 +33,16 @@ public class ScaffoldPatrol : MonoBehaviour {
 			}
 		}
 	}
-	IEnumerator Wait(){
-		yield return new WaitForSeconds (2f);
-
-	}
 
 	void OnCollisionStay(Collision c){
-		GameObject go = c.gameObject;
-		Vector3 direction;
-		direction = waypoints[targetIndex].position - go.transform.position;
-		if (bs.ballUsed) {
-			go.transform.position = Vector3.MoveTowards(go.transform.position, waypoints[targetIndex].position, Time.deltaTime * speed);
-				
-		}
-	}
+        
+        if (bs.ballUsed) {
+            GameObject go = c.gameObject;
+            Vector3 offset = transform.position - go.transform.position;
+            Vector3 waypointOffset = waypoints[targetIndex].position - offset;
+            Vector3 alustaOffset = transform.position - offset;
+            //go.transform.position = Vector3.MoveTowards(go.transform.position, waypointOffset, Time.deltaTime * speed);
+            go.GetComponent<Rigidbody>().MovePosition(Vector3.MoveTowards(go.transform.position, alustaOffset, Time.fixedDeltaTime * speed));
+        }
+    }
 }
