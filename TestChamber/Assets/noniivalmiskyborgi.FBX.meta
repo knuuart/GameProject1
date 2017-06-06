@@ -83,7 +83,87 @@ ModelImporter:
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Take 001
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 23
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: core
+        weight: 1
+      - path: core/oikealantio
+        weight: 1
+      - path: core/oikealantio/oikealonkka
+        weight: 1
+      - path: "core/oikealantio/oikealonkka/oikeas\xE4\xE4ri"
+        weight: 1
+      - path: "core/oikealantio/oikealonkka/oikeas\xE4\xE4ri/oikeanilkka"
+        weight: 1
+      - path: "core/oikealantio/oikealonkka/oikeas\xE4\xE4ri/oikeanilkka/oikeajalkap\xF6yt\xE4"
+        weight: 1
+      - path: "core/oikealantio/oikealonkka/oikeas\xE4\xE4ri/oikeanilkka/oikeajalkap\xF6yt\xE4/oikeavarvas"
+        weight: 1
+      - path: core/vasenlantio
+        weight: 1
+      - path: core/vasenlantio/vasenlonkka
+        weight: 1
+      - path: "core/vasenlantio/vasenlonkka/vasens\xE4\xE4ri"
+        weight: 1
+      - path: "core/vasenlantio/vasenlonkka/vasens\xE4\xE4ri/vasennilkka"
+        weight: 1
+      - path: "core/vasenlantio/vasenlonkka/vasens\xE4\xE4ri/vasennilkka/vasenjalkap\xF6yt\xE4"
+        weight: 1
+      - path: "core/vasenlantio/vasenlonkka/vasens\xE4\xE4ri/vasennilkka/vasenjalkap\xF6yt\xE4/vasenvarvas"
+        weight: 1
+      - path: "core/yl\xE4vartalo"
+        weight: 1
+      - path: "core/yl\xE4vartalo/hartiat"
+        weight: 1
+      - path: "core/yl\xE4vartalo/hartiat/kaula"
+        weight: 1
+      - path: "core/yl\xE4vartalo/hartiat/kaula/p\xE4\xE4"
+        weight: 1
+      - path: "core/yl\xE4vartalo/hartiat/oikeahartia"
+        weight: 1
+      - path: "core/yl\xE4vartalo/hartiat/oikeahartia/oikeak\xE4sivarsi"
+        weight: 1
+      - path: "core/yl\xE4vartalo/hartiat/oikeahartia/oikeak\xE4sivarsi/oikeaarm"
+        weight: 1
+      - path: "core/yl\xE4vartalo/hartiat/oikeahartia/oikeak\xE4sivarsi/oikeaarm/oikeak\xE4si"
+        weight: 1
+      - path: "core/yl\xE4vartalo/hartiat/vasenk\xE4sivarsi"
+        weight: 1
+      - path: "core/yl\xE4vartalo/hartiat/vasenk\xE4sivarsi/vasenarm"
+        weight: 1
+      - path: "core/yl\xE4vartalo/hartiat/vasenk\xE4sivarsi/vasenarm/vasenk\xE4si"
+        weight: 1
+      - path: NGon001
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     isReadable: 1
   meshes:
     lODScreenPercentages: []

@@ -17,19 +17,26 @@ public class NewPlayerBehaviour : MonoBehaviour {
     Rigidbody rb;
     float movePower;
     public float sphereRadius, sphereDistance, jumpForce;
+	public Animator anim;
+	public GameObject playerGraphics;
 
     private Vector3 playerpos;
 
     // Use this for initialization
     void Awake() {
         rb = GetComponent<Rigidbody>();
-        mouseSensitivityY = mouseSensitivity;
         Cursor.lockState = CursorLockMode.Locked;
         playerpos = transform.position;
 
     }
     void Update() {
 
+
+		mouseSensitivityY = mouseSensitivity;
+
+		if(Input.GetKey(KeyCode.J)){
+			anim.Play("Take 001");
+		}
         //DEMO
 
 //        if (transform.position.y < -5) { transform.position = playerpos; }
@@ -79,6 +86,7 @@ public class NewPlayerBehaviour : MonoBehaviour {
         if (Vector3.Angle(xzFwd, xzFwdAfter) < 90f && xzFwdAfter.magnitude > 0.001f) {
             cam.transform.rotation = qy * cam.transform.rotation;
         }
+		playerGraphics.transform.eulerAngles = new Vector3 (0, cam.transform.eulerAngles.y, 0);
         //if (Input.GetKeyDown(KeyCode.P)) print (Vector3.Angle (Vector3.zero, Vector3.zero)); // Angle between two zero vectors is 90 :thinking:
         //		var q = Quaternion.AngleAxis(RotX, Vector3.up);
         //		cam.transform.rotation = q * Quaternion.AngleAxis(RotY, q * Vector3.left) *  cam.transform.rotation;
