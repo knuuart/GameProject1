@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class MenuCamera : MonoBehaviour {
 
     public Image image;
+    public Material walls;
+    public float speed;
 
     public float fadeInSpeed;
 
@@ -18,6 +20,12 @@ public class MenuCamera : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+        //wall sliding
+
+        var ass = walls.mainTextureOffset;
+        walls.mainTextureOffset = new Vector2(0, ass.y - speed * Time.deltaTime);
+
 
         //Fadeout
 
