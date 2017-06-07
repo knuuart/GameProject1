@@ -9,25 +9,30 @@ public class ShootPortal : MonoBehaviour {
     TeleportationV2 tp;
     public float minDistance, yMin = 1.6f, xMin = 0.9f;
     public LayerMask passRaycast;
+    escapeMenu escMenu;
 
     // Use this for initialization
     void Awake () {
+        escMenu = GameObject.Find("Escape Menu Handler").GetComponent<escapeMenu>();
         tp = GetComponent<TeleportationV2>();
         passRaycast = ~passRaycast;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetButtonDown("ShootGreenPortal") && !CarryObject.carrying) {
-            CreatePortal(bluePortal);
-        }
-        if (Input.GetButtonDown("ShootPinkPortal") && !CarryObject.carrying) {
-            CreatePortal(orangePortal);
-        }
-        if(behindBlue != null && behindOrange != null) {
-            orangePortal.GetComponentInChildren<MeshRenderer>().enabled = true;
-            bluePortal.GetComponentInChildren<MeshRenderer>().enabled = true;
+        if (!escMenu.menusOpen) {
+            if (Input.GetButtonDown("ShootGreenPortal") && !CarryObject.carrying) {
+                CreatePortal(bluePortal);
+            }
+            if (Input.GetButtonDown("ShootPinkPortal") && !CarryObject.carrying) {
+                CreatePortal(orangePortal);
+            }
 
+            if (behindBlue != null && behindOrange != null) {
+                orangePortal.GetComponentInChildren<MeshRenderer>().enabled = true;
+                bluePortal.GetComponentInChildren<MeshRenderer>().enabled = true;
+
+            }
         }
     }
     public void ResetCollision(Collider objectCollider, Collider ignoredCollider) {

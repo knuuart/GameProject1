@@ -33,6 +33,14 @@ public class escapeMenu : MonoBehaviour {
             Debug.LogError("Player reference missing in Escape Menu Handler");
         }
 
+
+
+        mouseSensitivitySlider.value = sNPB.mouseSensitivity;
+
+        QualitySettingsDrop.value = QualitySettings.GetQualityLevel();
+
+        mouseInvert.isOn = sNPB.mInvert;
+
         Cursor.lockState = CursorLockMode.Locked;
 
         optVisible = false;
@@ -93,18 +101,17 @@ public class escapeMenu : MonoBehaviour {
     public void MouseSensChanged() {
 
         var value = mouseSensitivitySlider.value;
-
-        sNPB.mouseSensitivity = value;     
         
     }
 
     public void MouseInvert() {
-        sNPB.mInvert = !mouseInvert.isOn;
+        sNPB.MouseInvert();
     }
 
     public void QualiySettings() {
 
-        var q = QualitySettingsDrop.value;
+        var qValue = QualitySettingsDrop.value;
+        QualitySettings.SetQualityLevel(qValue);
     }
    
     private void OnApplicationFocus(bool focus) {
