@@ -80,16 +80,26 @@ public class NewPlayerBehaviour : MonoBehaviour {
                 cam.transform.rotation = qy * cam.transform.rotation;
             }
             playerGraphics.transform.eulerAngles = new Vector3(0, cam.transform.eulerAngles.y, 0);
+            if (grounded) {
+                if (Input.GetKeyDown(KeyCode.Space)) {
+                    rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+                }
+            }
+            
         }
         
     }
     void FixedUpdate() {
-
         if (!escMenu.menusOpen) {
-
             //Getting movement inputs
             float MoveX = Input.GetAxis("Horizontal");
             float MoveZ = Input.GetAxis("Vertical");
+
+            if (grounded) {
+                movePower = groundPower;
+            } else {
+                movePower = airPower;
+            }
 
             //Movement
             var XZForward = Vector3.ProjectOnPlane(cam.transform.forward, Vector3.up);
@@ -102,17 +112,6 @@ public class NewPlayerBehaviour : MonoBehaviour {
             newVelocity = Vector3.ClampMagnitude(newVelocity, grounded ? groundSpeedLimit : airSpeedLimit);
 
             rb.velocity = newVelocity;
-
-            //Jumping
-
-            if (grounded) {
-                if (Input.GetKeyDown(KeyCode.Space)) {
-                    rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-                }
-                movePower = groundPower;
-            } else {
-                movePower = airPower;
-            }
         }
     }
     void OnDrawGizmos() {
