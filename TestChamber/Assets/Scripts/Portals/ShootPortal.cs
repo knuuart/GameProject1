@@ -8,11 +8,12 @@ public class ShootPortal : MonoBehaviour {
 	public GameObject behindBlue, behindOrange;
     TeleportationV2 tp;
     public float minDistance, yMin = 1.6f, xMin = 0.9f;
-    public LayerMask passRaycast;
+    public LayerMask passRaycast, ignoreRaycast;
 
     // Use this for initialization
-    void Awake () {
+    void Start () {
         tp = GetComponent<TeleportationV2>();
+        passRaycast = passRaycast | ignoreRaycast;
         passRaycast = ~passRaycast;
 	}
 	
