@@ -20,6 +20,7 @@ public class BigButtonBehaviour : MonoBehaviour {
 
     private float weightOnButton;
     private List<GameObject> objectsOnButton = new List<GameObject>();
+	bool activated;
 
     void OnCollisionEnter(Collision coll) {
         if (coll.gameObject.GetComponent<Rigidbody>() != null) {
@@ -29,7 +30,7 @@ public class BigButtonBehaviour : MonoBehaviour {
         }
     }
 
-    private void OnCollisionExit(Collision coll) {
+    void OnCollisionExit(Collision coll) {
         if (coll.gameObject.GetComponent<Rigidbody>() != null) {
             var rb = coll.gameObject.GetComponent<Rigidbody>();
             weightOnButton -= rb.mass;
@@ -37,11 +38,13 @@ public class BigButtonBehaviour : MonoBehaviour {
         }
     }
 
-    private void ButtonStateCheck() {
-        if (weightOnButton >= activationMass) {
+    void ButtonStateCheck() {
+		if (weightOnButton >= activationMass && activated == false) {
             Activate.Invoke();
-        } else {
+			activated = true;
+		} else if (weightOnButton < activationMass){
             DeActivate.Invoke();
+			activated = false;
         }
     }
 }
