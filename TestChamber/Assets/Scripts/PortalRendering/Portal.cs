@@ -8,19 +8,12 @@ public class Portal : MonoBehaviour
     public Portal target;
     public Camera portalCamera;
     public Transform projectionCenter;
-
-    private Transform mainCameraTransform;
     #endregion
     #region init
     private void Start()
     {
         if (!target)
-        {
             Debug.LogErrorFormat("Portal {0} has no Target", gameObject.name);
-            return;
-        }
-
-        mainCameraTransform = mainCamera.transform;
     }
     #endregion
     #region logic
@@ -30,6 +23,12 @@ public class Portal : MonoBehaviour
 
     public void LateUpdate()
     {
+        //change portal camera depth values to make sure that the correct camera is rendered on top
+        float distance = Vector3.Distance(mainCamera.transform.position, transform.position);
+        float distance2 = Vector3.Distance(mainCamera.transform.position, target.transform.position);
+        
+        portalCamera.depth = distance < distance2 ? -1 : -2;
+
         // The rotation and projection code taken from: https://github.com/pr0g/unity-portal-rendering/tree/master
         // Thanks a lot pr0g!
 

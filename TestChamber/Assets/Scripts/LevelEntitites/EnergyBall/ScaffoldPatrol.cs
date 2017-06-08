@@ -13,13 +13,6 @@ public class ScaffoldPatrol : MonoBehaviour {
 	void Start () {
         rb = GetComponent<Rigidbody>();
 	}
-	
-	// Update is called once per frame
-	void FixedUpdate () {
-		if (bs.ballUsed) {
-			MoveToPoint();		
-		}
-	}
 	void MoveToPoint(){
 		//transform.position = Vector3.MoveTowards(transform.position, waypoints[targetIndex].position, Time.deltaTime * speed);
         rb.MovePosition(Vector3.MoveTowards(transform.position, waypoints[targetIndex].position, Time.deltaTime * speed));
@@ -32,6 +25,26 @@ public class ScaffoldPatrol : MonoBehaviour {
 				targetIndex = 0;
 			}
 		}
+	}
+
+	IEnumerator MoveScaffold(){
+		while (true) {
+			rb.MovePosition(Vector3.MoveTowards(transform.position, waypoints[targetIndex].position, Time.deltaTime * speed));
+			Vector3 direction;
+			direction = waypoints[targetIndex].position - transform.position;
+
+			if(direction.magnitude < tolerance) {
+				yield return new WaitForSeconds (1.5f);
+				targetIndex++;
+				if(targetIndex == waypoints.Length){
+					targetIndex = 0;
+				}
+			}
+			yield return null;
+		}
+	}
+	public void StartPatrol (){
+		StartCoroutine(MoveScaffold());
 	}
 
 	void OnCollisionStay(Collision c){

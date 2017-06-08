@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class BallReceiver : MonoBehaviour {
-
-    public GameObject bs;
+	public UnityEvent onBallReceived;
+	public BallSpawner bs;
 
 	// Use this for initialization
 	void Start () {
@@ -15,10 +16,11 @@ public class BallReceiver : MonoBehaviour {
 		
 	}
     private void OnTriggerEnter(Collider other) {
-        if (other.tag == "EnergyBall") {
+		if (other.tag == "EnergyBall" && bs.ballUsed == false) {
             EnergyBall eb = other.GetComponent<EnergyBall>();
             eb.DestroyBall();
-            bs.GetComponent<BallSpawner>().ballUsed = true;
+            bs.ballUsed = true;
+			onBallReceived.Invoke ();
         }
     }
 }
