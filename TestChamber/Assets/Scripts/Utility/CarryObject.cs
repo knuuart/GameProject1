@@ -5,7 +5,7 @@ using UnityEngine;
 public class CarryObject : MonoBehaviour {
     GameObject carriedObject;
     public static bool carrying;
-    public float distance, maxDistance = 3.5f, throwForce = 7f, moveForce = 50f;
+    public float distance, maxDistance = 3.5f, throwForce = 7f, moveForce = 20f;
     
 	void Start () {
 	}
