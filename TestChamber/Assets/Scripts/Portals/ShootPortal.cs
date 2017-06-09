@@ -38,6 +38,7 @@ public class ShootPortal : MonoBehaviour {
             if (behindBlue != null && behindOrange != null) {
                 orangePortal.GetComponentInChildren<MeshRenderer>().enabled = true;
                 bluePortal.GetComponentInChildren<MeshRenderer>().enabled = true;
+
             }
         }
     }
