@@ -1,0 +1,436 @@
+fileFormatVersion: 2
+guid: 7cb1da4fb51ea6f449a88768cecd3e7d
+timeCreated: 1496905717
+licenseType: Pro
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: CORE
+    100002: kaula
+    100004: NGon001
+    100006: oikeaarm
+    100008: "oikeajalkp\xF6yt\xE4"
+    100010: "oikeak\xE4si"
+    100012: "oikeak\xE4sivarsi"
+    100014: oikealeg
+    100016: oikeanilkka
+    100018: oikeaolka
+    100020: "oikeas\xE4\xE4ri"
+    100022: oikeavarvas
+    100024: "p\xE4\xE4"
+    100026: //RootNode
+    100028: vasenarm
+    100030: "vasenjalkap\xF6yt\xE4"
+    100032: "vasenk\xE4si"
+    100034: "vasenk\xE4sivarsi"
+    100036: vasenleg
+    100038: vasennilkka
+    100040: vasenolka
+    100042: "vasens\xE4\xE4ri"
+    100044: vasenvarvas
+    100046: "yl\xE4vartalo"
+    400000: CORE
+    400002: kaula
+    400004: NGon001
+    400006: oikeaarm
+    400008: "oikeajalkp\xF6yt\xE4"
+    400010: "oikeak\xE4si"
+    400012: "oikeak\xE4sivarsi"
+    400014: oikealeg
+    400016: oikeanilkka
+    400018: oikeaolka
+    400020: "oikeas\xE4\xE4ri"
+    400022: oikeavarvas
+    400024: "p\xE4\xE4"
+    400026: //RootNode
+    400028: vasenarm
+    400030: "vasenjalkap\xF6yt\xE4"
+    400032: "vasenk\xE4si"
+    400034: "vasenk\xE4sivarsi"
+    400036: vasenleg
+    400038: vasennilkka
+    400040: vasenolka
+    400042: "vasens\xE4\xE4ri"
+    400044: vasenvarvas
+    400046: "yl\xE4vartalo"
+    4300000: NGon001
+    7400000: Take 001
+    7400002: Idle
+    7400004: Juoksu
+    7400006: Hyppy
+    9500000: //RootNode
+    13700000: NGon001
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Take 001
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 110
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: CORE
+        weight: 1
+      - path: "CORE/yl\xE4vartalo"
+        weight: 1
+      - path: "CORE/yl\xE4vartalo/kaula"
+        weight: 1
+      - path: "CORE/yl\xE4vartalo/kaula/p\xE4\xE4"
+        weight: 1
+      - path: "CORE/yl\xE4vartalo/oikeaolka"
+        weight: 1
+      - path: "CORE/yl\xE4vartalo/oikeaolka/oikeak\xE4sivarsi"
+        weight: 1
+      - path: "CORE/yl\xE4vartalo/oikeaolka/oikeak\xE4sivarsi/oikeaarm"
+        weight: 1
+      - path: "CORE/yl\xE4vartalo/oikeaolka/oikeak\xE4sivarsi/oikeaarm/oikeak\xE4si"
+        weight: 1
+      - path: NGon001
+        weight: 1
+      - path: "oikeas\xE4\xE4ri"
+        weight: 1
+      - path: "oikeas\xE4\xE4ri/oikealeg"
+        weight: 1
+      - path: "oikeas\xE4\xE4ri/oikealeg/oikeanilkka"
+        weight: 1
+      - path: "oikeas\xE4\xE4ri/oikealeg/oikeanilkka/oikeajalkp\xF6yt\xE4"
+        weight: 1
+      - path: "oikeas\xE4\xE4ri/oikealeg/oikeanilkka/oikeajalkp\xF6yt\xE4/oikeavarvas"
+        weight: 1
+      - path: vasenolka
+        weight: 1
+      - path: "vasenolka/vasenk\xE4sivarsi"
+        weight: 1
+      - path: "vasenolka/vasenk\xE4sivarsi/vasenarm"
+        weight: 1
+      - path: "vasenolka/vasenk\xE4sivarsi/vasenarm/vasenk\xE4si"
+        weight: 1
+      - path: "vasens\xE4\xE4ri"
+        weight: 1
+      - path: "vasens\xE4\xE4ri/vasenleg"
+        weight: 1
+      - path: "vasens\xE4\xE4ri/vasenleg/vasennilkka"
+        weight: 1
+      - path: "vasens\xE4\xE4ri/vasenleg/vasennilkka/vasenjalkap\xF6yt\xE4"
+        weight: 1
+      - path: "vasens\xE4\xE4ri/vasenleg/vasennilkka/vasenjalkap\xF6yt\xE4/vasenvarvas"
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Idle
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 10
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: CORE
+        weight: 1
+      - path: "CORE/yl\xE4vartalo"
+        weight: 1
+      - path: "CORE/yl\xE4vartalo/kaula"
+        weight: 1
+      - path: "CORE/yl\xE4vartalo/kaula/p\xE4\xE4"
+        weight: 1
+      - path: "CORE/yl\xE4vartalo/oikeaolka"
+        weight: 1
+      - path: "CORE/yl\xE4vartalo/oikeaolka/oikeak\xE4sivarsi"
+        weight: 1
+      - path: "CORE/yl\xE4vartalo/oikeaolka/oikeak\xE4sivarsi/oikeaarm"
+        weight: 1
+      - path: "CORE/yl\xE4vartalo/oikeaolka/oikeak\xE4sivarsi/oikeaarm/oikeak\xE4si"
+        weight: 1
+      - path: NGon001
+        weight: 1
+      - path: "oikeas\xE4\xE4ri"
+        weight: 1
+      - path: "oikeas\xE4\xE4ri/oikealeg"
+        weight: 1
+      - path: "oikeas\xE4\xE4ri/oikealeg/oikeanilkka"
+        weight: 1
+      - path: "oikeas\xE4\xE4ri/oikealeg/oikeanilkka/oikeajalkp\xF6yt\xE4"
+        weight: 1
+      - path: "oikeas\xE4\xE4ri/oikealeg/oikeanilkka/oikeajalkp\xF6yt\xE4/oikeavarvas"
+        weight: 1
+      - path: vasenolka
+        weight: 1
+      - path: "vasenolka/vasenk\xE4sivarsi"
+        weight: 1
+      - path: "vasenolka/vasenk\xE4sivarsi/vasenarm"
+        weight: 1
+      - path: "vasenolka/vasenk\xE4sivarsi/vasenarm/vasenk\xE4si"
+        weight: 1
+      - path: "vasens\xE4\xE4ri"
+        weight: 1
+      - path: "vasens\xE4\xE4ri/vasenleg"
+        weight: 1
+      - path: "vasens\xE4\xE4ri/vasenleg/vasennilkka"
+        weight: 1
+      - path: "vasens\xE4\xE4ri/vasenleg/vasennilkka/vasenjalkap\xF6yt\xE4"
+        weight: 1
+      - path: "vasens\xE4\xE4ri/vasenleg/vasennilkka/vasenjalkap\xF6yt\xE4/vasenvarvas"
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Juoksu
+      takeName: Take 001
+      firstFrame: 15
+      lastFrame: 43
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: CORE
+        weight: 1
+      - path: "CORE/yl\xE4vartalo"
+        weight: 1
+      - path: "CORE/yl\xE4vartalo/kaula"
+        weight: 1
+      - path: "CORE/yl\xE4vartalo/kaula/p\xE4\xE4"
+        weight: 1
+      - path: "CORE/yl\xE4vartalo/oikeaolka"
+        weight: 1
+      - path: "CORE/yl\xE4vartalo/oikeaolka/oikeak\xE4sivarsi"
+        weight: 1
+      - path: "CORE/yl\xE4vartalo/oikeaolka/oikeak\xE4sivarsi/oikeaarm"
+        weight: 1
+      - path: "CORE/yl\xE4vartalo/oikeaolka/oikeak\xE4sivarsi/oikeaarm/oikeak\xE4si"
+        weight: 1
+      - path: NGon001
+        weight: 1
+      - path: "oikeas\xE4\xE4ri"
+        weight: 1
+      - path: "oikeas\xE4\xE4ri/oikealeg"
+        weight: 1
+      - path: "oikeas\xE4\xE4ri/oikealeg/oikeanilkka"
+        weight: 1
+      - path: "oikeas\xE4\xE4ri/oikealeg/oikeanilkka/oikeajalkp\xF6yt\xE4"
+        weight: 1
+      - path: "oikeas\xE4\xE4ri/oikealeg/oikeanilkka/oikeajalkp\xF6yt\xE4/oikeavarvas"
+        weight: 1
+      - path: vasenolka
+        weight: 1
+      - path: "vasenolka/vasenk\xE4sivarsi"
+        weight: 1
+      - path: "vasenolka/vasenk\xE4sivarsi/vasenarm"
+        weight: 1
+      - path: "vasenolka/vasenk\xE4sivarsi/vasenarm/vasenk\xE4si"
+        weight: 1
+      - path: "vasens\xE4\xE4ri"
+        weight: 1
+      - path: "vasens\xE4\xE4ri/vasenleg"
+        weight: 1
+      - path: "vasens\xE4\xE4ri/vasenleg/vasennilkka"
+        weight: 1
+      - path: "vasens\xE4\xE4ri/vasenleg/vasennilkka/vasenjalkap\xF6yt\xE4"
+        weight: 1
+      - path: "vasens\xE4\xE4ri/vasenleg/vasennilkka/vasenjalkap\xF6yt\xE4/vasenvarvas"
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Hyppy
+      takeName: Take 001
+      firstFrame: 50
+      lastFrame: 110
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: CORE
+        weight: 1
+      - path: "CORE/yl\xE4vartalo"
+        weight: 1
+      - path: "CORE/yl\xE4vartalo/kaula"
+        weight: 1
+      - path: "CORE/yl\xE4vartalo/kaula/p\xE4\xE4"
+        weight: 1
+      - path: "CORE/yl\xE4vartalo/oikeaolka"
+        weight: 1
+      - path: "CORE/yl\xE4vartalo/oikeaolka/oikeak\xE4sivarsi"
+        weight: 1
+      - path: "CORE/yl\xE4vartalo/oikeaolka/oikeak\xE4sivarsi/oikeaarm"
+        weight: 1
+      - path: "CORE/yl\xE4vartalo/oikeaolka/oikeak\xE4sivarsi/oikeaarm/oikeak\xE4si"
+        weight: 1
+      - path: NGon001
+        weight: 1
+      - path: "oikeas\xE4\xE4ri"
+        weight: 1
+      - path: "oikeas\xE4\xE4ri/oikealeg"
+        weight: 1
+      - path: "oikeas\xE4\xE4ri/oikealeg/oikeanilkka"
+        weight: 1
+      - path: "oikeas\xE4\xE4ri/oikealeg/oikeanilkka/oikeajalkp\xF6yt\xE4"
+        weight: 1
+      - path: "oikeas\xE4\xE4ri/oikealeg/oikeanilkka/oikeajalkp\xF6yt\xE4/oikeavarvas"
+        weight: 1
+      - path: vasenolka
+        weight: 1
+      - path: "vasenolka/vasenk\xE4sivarsi"
+        weight: 1
+      - path: "vasenolka/vasenk\xE4sivarsi/vasenarm"
+        weight: 1
+      - path: "vasenolka/vasenk\xE4sivarsi/vasenarm/vasenk\xE4si"
+        weight: 1
+      - path: "vasens\xE4\xE4ri"
+        weight: 1
+      - path: "vasens\xE4\xE4ri/vasenleg"
+        weight: 1
+      - path: "vasens\xE4\xE4ri/vasenleg/vasennilkka"
+        weight: 1
+      - path: "vasens\xE4\xE4ri/vasenleg/vasennilkka/vasenjalkap\xF6yt\xE4"
+        weight: 1
+      - path: "vasens\xE4\xE4ri/vasenleg/vasennilkka/vasenjalkap\xF6yt\xE4/vasenvarvas"
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
