@@ -15,6 +15,8 @@ public class TeleportationV2 : MonoBehaviour {
 //    Transform portal1, portal2;
 	Camera playerCam;
     public float minY = 4f;
+	public Transform targetPosition;
+	Vector3 startPosition;
 
     [Header("Velocity Values")]
     public Vector3 velocity;
@@ -39,6 +41,7 @@ public class TeleportationV2 : MonoBehaviour {
         rb = GetComponent<Rigidbody>();
         efc = GetComponent<ExtendedFlycam> ();
 		npb = GetComponent<NewPlayerBehaviour> ();
+		startPosition = Camera.main.transform.InverseTransformPoint (targetPosition.position);
     }
     private void OnTriggerExit(Collider other) {
         if (sp.behindBlue != null && sp.behindOrange != null) {
@@ -136,6 +139,7 @@ public class TeleportationV2 : MonoBehaviour {
 
                 Quaternion newRotation = Portal.QuaternionFromMatrix(inversionMatrix) * npb.cam.transform.rotation;
                 npb.cam.transform.rotation = portal2.rotation * newRotation;
+				targetPosition.position = Camera.main.transform.TransformPoint (startPosition);
             } else {
                 Quaternion newRotation = Portal.QuaternionFromMatrix(inversionMatrix) * transform.rotation;
                 transform.rotation = portal2.rotation * newRotation;

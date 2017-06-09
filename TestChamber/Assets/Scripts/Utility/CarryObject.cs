@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CarryObject : MonoBehaviour {
     GameObject carriedObject;
+	public Transform targetPosition;
     public static bool carrying;
     public float distance, maxDistance = 3.5f, throwForce = 7f, moveForce = 20f;
     
@@ -44,9 +45,9 @@ public class CarryObject : MonoBehaviour {
             }
         }
         if (carrying) {
-            Vector3 targetPosition = Camera.main.transform.position + Camera.main.transform.forward * distance;
+//            Vector3 targetPosition = Camera.main.transform.position + Camera.main.transform.forward * distance;
             carriedObject.GetComponent<Rigidbody>().velocity = GetComponent<Rigidbody>().velocity;
-            carriedObject.GetComponent<Rigidbody>().MovePosition(Vector3.MoveTowards(carriedObject.transform.position, targetPosition, Time.fixedDeltaTime * moveForce)); // moveForce about 20f
+			carriedObject.GetComponent<Rigidbody>().MovePosition(Vector3.MoveTowards(carriedObject.transform.position, targetPosition.position, Time.fixedDeltaTime * moveForce)); // moveForce about 20f
             //carriedObject.transform.position = Vector3.MoveTowards(carriedObject.transform.position, targetPosition, Time.fixedDeltaTime * moveForce);
 
             carriedObject.GetComponent<Rigidbody>().freezeRotation = true;
