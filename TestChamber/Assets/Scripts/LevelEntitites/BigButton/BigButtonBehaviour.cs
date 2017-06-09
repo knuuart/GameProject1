@@ -17,6 +17,10 @@ public class BigButtonBehaviour : MonoBehaviour {
     [Tooltip("When the button gets back up")]
     public UnityEvent DeActivate;
 
+    [Header("Sounds for button press & release")]
+    public UnityEvent buttonUp;
+    public UnityEvent buttonDown;
+
 
     private float weightOnButton;
     private List<GameObject> objectsOnButton = new List<GameObject>();
@@ -41,10 +45,12 @@ public class BigButtonBehaviour : MonoBehaviour {
     void ButtonStateCheck() {
 		if (weightOnButton >= activationMass && activated == false) {
             Activate.Invoke();
-			activated = true;
+            buttonDown.Invoke();
+            activated = true;
 		} else if (weightOnButton < activationMass){
             DeActivate.Invoke();
-			activated = false;
+            buttonUp.Invoke();
+            activated = false;
         }
     }
 }

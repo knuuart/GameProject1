@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class ShootPortal : MonoBehaviour {
 
@@ -10,6 +11,10 @@ public class ShootPortal : MonoBehaviour {
     public float minDistance, yMin = 1.6f, xMin = 0.9f;
     public LayerMask passRaycast, ignoreRaycast;
     escapeMenu escMenu;
+    [Header("Sounds for shooting")]
+    public UnityEvent pinkPortalShoot;
+    public UnityEvent greenPortalShoot;
+    public UnityEvent portalAppear;
 
     // Use this for initialization
     void Awake () {
@@ -24,9 +29,11 @@ public class ShootPortal : MonoBehaviour {
         if (!escMenu.menusOpen) {
             if (Input.GetButtonDown("ShootGreenPortal") && !CarryObject.carrying) {
                 CreatePortal(bluePortal);
+                greenPortalShoot.Invoke();
             }
             if (Input.GetButtonDown("ShootPinkPortal") && !CarryObject.carrying) {
                 CreatePortal(orangePortal);
+                pinkPortalShoot.Invoke();
             }
             if (behindBlue != null && behindOrange != null) {
                 orangePortal.GetComponentInChildren<MeshRenderer>().enabled = true;
@@ -134,6 +141,8 @@ public class ShootPortal : MonoBehaviour {
                 return false;
             } else {
                 portal.transform.position = PortalPosition(hit, portal, otherPortal);
+                //HERE
+                portalAppear.Invoke();
             }
             //portal.transform.position = PortalPosition(hit, portal, otherPortal);
 
