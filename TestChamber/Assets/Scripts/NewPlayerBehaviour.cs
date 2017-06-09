@@ -43,9 +43,12 @@ public class NewPlayerBehaviour : MonoBehaviour {
         } else { mouseSensitivityY = mouseSensitivity * -1; }
         
 
-		if(Input.GetKey(KeyCode.J)){
-			anim.Play("Take 001");
+		if (Input.GetAxis ("Vertical") != 0 || Input.GetAxis("Horizontal") != 0 && grounded == true) {
+			anim.SetBool ("Juoksee", true);
+		} else {
+			anim.SetBool ("Juoksee", false);
 		}
+
 
         //Uprighting the camera
         var angles = cam.transform.localEulerAngles;
@@ -83,6 +86,7 @@ public class NewPlayerBehaviour : MonoBehaviour {
             if (grounded) {
                 if (Input.GetKeyDown(KeyCode.Space)) {
                     rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+					anim.SetTrigger ("Hyppää");
                 }
             }
             
