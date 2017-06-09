@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class BallSpawner : MonoBehaviour {
     public GameObject energyBall;
@@ -8,6 +9,7 @@ public class BallSpawner : MonoBehaviour {
     EnergyBall eb;
     float timer, recharge = 2f;
     public float lifeTime;
+    public UnityEvent spawnSound;
 
 	void Start () {
 	}
@@ -21,10 +23,12 @@ public class BallSpawner : MonoBehaviour {
             }
         }
         SpawnBall();
-	}
+        
+    }
     void SpawnBall() {
         if(ballAlive == false) {
             Instantiate(energyBall, gameObject.transform.position, Quaternion.identity);
+            spawnSound.Invoke();
             ballAlive = true;
         }
     }

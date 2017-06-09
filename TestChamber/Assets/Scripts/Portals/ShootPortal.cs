@@ -12,8 +12,9 @@ public class ShootPortal : MonoBehaviour {
     public LayerMask passRaycast, ignoreRaycast;
     escapeMenu escMenu;
     [Header("Sounds for shooting")]
-    public AudioSource Portal1;
-    public AudioSource Portal2;
+    public UnityEvent pinkPortalShoot;
+    public UnityEvent greenPortalShoot;
+    public UnityEvent portalAppear;
 
     // Use this for initialization
     void Awake () {
@@ -28,11 +29,11 @@ public class ShootPortal : MonoBehaviour {
         if (!escMenu.menusOpen) {
             if (Input.GetButtonDown("ShootGreenPortal") && !CarryObject.carrying) {
                 CreatePortal(bluePortal);
-                Portal1.PlayOneShot(Portal1.clip);
+                greenPortalShoot.Invoke();
             }
             if (Input.GetButtonDown("ShootPinkPortal") && !CarryObject.carrying) {
                 CreatePortal(orangePortal);
-                Portal2.PlayOneShot(Portal2.clip);
+                pinkPortalShoot.Invoke();
             }
             if (behindBlue != null && behindOrange != null) {
                 orangePortal.GetComponentInChildren<MeshRenderer>().enabled = true;
@@ -140,6 +141,8 @@ public class ShootPortal : MonoBehaviour {
                 return false;
             } else {
                 portal.transform.position = PortalPosition(hit, portal, otherPortal);
+                //HERE
+                portalAppear.Invoke();
             }
             //portal.transform.position = PortalPosition(hit, portal, otherPortal);
 
