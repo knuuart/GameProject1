@@ -80,15 +80,15 @@ public class ShootPortal : MonoBehaviour {
         Vector3 portalOffset = otherPortal.transform.position - newGlobal;
         if (hit.normal == otherPortal.transform.forward && portalOffset.magnitude < 3.2f) {
             Vector3 finalGlobal = PortalFinal(newGlobal, portal, otherPortal);
-            return finalGlobal;
-            //Vector3 finalLocal = hit.transform.InverseTransformPoint(finalGlobal);
-            //finalLocal.x *= lossyScale.x;
-            //finalLocal.y *= lossyScale.y;
-            //if (Mathf.Abs(finalLocal.x) > (xMax - xMin) || Mathf.Abs(finalLocal.y) > (yMax - yMin)) {
-            //    return Vector3.zero;
-            //} else {
-            //    return finalGlobal;
-            //}
+            //return finalGlobal;
+            Vector3 finalLocal = hit.transform.InverseTransformPoint(finalGlobal);
+            finalLocal.x *= lossyScale.x;
+            finalLocal.y *= lossyScale.y;
+            if (Mathf.Abs(finalLocal.x) > (xMax - xMin * 0.8f) || Mathf.Abs(finalLocal.y) > (yMax - yMin * 0.8f)) {
+                return Vector3.zero;
+            } else {
+                return finalGlobal;
+            }
 
         } else {
             return newGlobal;
