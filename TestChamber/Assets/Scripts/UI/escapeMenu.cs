@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class escapeMenu : MonoBehaviour {
 
@@ -80,8 +81,7 @@ public class escapeMenu : MonoBehaviour {
 
     public void QuitButton() {
 
-        Application.Quit();
-        Debug.Log("Game is trying to quit");
+        SceneManager.LoadScene(0);
     }
 
     public void OptionsButton(bool close) {
