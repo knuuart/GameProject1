@@ -28,11 +28,10 @@ public class ScaffoldPatrol : MonoBehaviour {
 	}
 
 	IEnumerator MoveScaffold(){
-		while (true) {
+        while (true) {
 			rb.MovePosition(Vector3.MoveTowards(transform.position, waypoints[targetIndex].position, Time.deltaTime * speed));
 			Vector3 direction;
 			direction = waypoints[targetIndex].position - transform.position;
-
 			if(direction.magnitude < tolerance) {
 				yield return new WaitForSeconds (1.5f);
 				targetIndex++;

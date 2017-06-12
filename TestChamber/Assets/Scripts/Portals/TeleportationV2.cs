@@ -16,6 +16,7 @@ public class TeleportationV2 : MonoBehaviour {
 	Camera playerCam;
     public float minY = 4f;
 	public Vector3 exitVelocity;
+    public AudioClip[] portalSounds;
 
     [Header("Velocity Values")]
     public Vector3 velocity;
@@ -139,8 +140,10 @@ public class TeleportationV2 : MonoBehaviour {
 
 
             if (gameObject.tag == "Player") {
-                    //				Quaternion newRotation = Portal.QuaternionFromMatrix(inversionMatrix) * efc.cameraOffset.rotation;
-                    //				efc.cameraOffset.rotation = portal2.rotation * newRotation;
+                AudioSource.PlayClipAtPoint(portalSounds[Random.Range(0, portalSounds.Length)], portal2.transform.position, 0.5f);
+
+                //				Quaternion newRotation = Portal.QuaternionFromMatrix(inversionMatrix) * efc.cameraOffset.rotation;
+                //				efc.cameraOffset.rotation = portal2.rotation * newRotation;
 
                 Quaternion newRotation = Portal.QuaternionFromMatrix(inversionMatrix) * npb.cam.transform.rotation;
                 npb.cam.transform.rotation = portal2.rotation * newRotation;

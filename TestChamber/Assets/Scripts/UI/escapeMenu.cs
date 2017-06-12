@@ -36,7 +36,6 @@ public class escapeMenu : MonoBehaviour {
 
 
 
-        mouseSensitivitySlider.value = sNPB.mouseSensitivity;
 
         QualitySettingsDrop.value = QualitySettings.GetQualityLevel();
 
@@ -49,8 +48,9 @@ public class escapeMenu : MonoBehaviour {
     }
 
     private void Update() {
+        sNPB.mouseSensitivity = mouseSensitivitySlider.value;
 
-        if (Input.GetButtonDown("Cancel")) {
+        if (Input.GetButtonDown("Cancel") && optVisible == false) {
             menuVisible = !menuVisible;
         }
 
@@ -77,11 +77,24 @@ public class escapeMenu : MonoBehaviour {
         } else if (windowFocused && menusOpen) {
             Cursor.lockState = CursorLockMode.Confined;
         }
+        if(!menuVisible && !optVisible) {
+            Cursor.lockState = CursorLockMode.Locked;
+        }
     }
 
     public void QuitButton() {
 
         SceneManager.LoadScene(0);
+    }
+    public void Resume() {
+        if (menuVisible) {
+            menuVisible = false;
+        }
+    }
+    public void ChangeVolume(float newValue) {
+        float newVol = AudioListener.volume;
+        newVol = newValue;
+        AudioListener.volume = newVol;
     }
 
     public void OptionsButton(bool close) {

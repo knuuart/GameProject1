@@ -12,7 +12,7 @@ public class NewPlayerBehaviour : MonoBehaviour {
     public float defaultRotation = 0f, rotationSpeed = 0.1f;
     public float groundSpeedLimit;
     public float airSpeedLimit;
-    public bool grounded;
+    public bool grounded, jumped;
     public Camera cam;
     Rigidbody rb;
     float movePower;
@@ -20,6 +20,7 @@ public class NewPlayerBehaviour : MonoBehaviour {
 	public Animator anim;
 	public GameObject playerGraphics;
     escapeMenu escMenu;
+    public AudioClip[] jumps;
 
     private Vector3 playerpos;
 
@@ -83,6 +84,8 @@ public class NewPlayerBehaviour : MonoBehaviour {
                 if (Input.GetKeyDown(KeyCode.Space)) {
                     rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
 					anim.SetTrigger ("Hyppää");
+                    jumped = true;
+                    AudioSource.PlayClipAtPoint(jumps[Random.Range(0, jumps.Length)], transform.position, 0.5f);
                 }
             }
             
@@ -139,7 +142,16 @@ public class NewPlayerBehaviour : MonoBehaviour {
             grounded = false;
         }
     }
-
+    private void OnCollisionEnter(Collision collision) {
+        if (jumped) {
+            if (collision.gameObject.transform.forward == Vector3.down) {
+                AudioSource.PlayClipAtPoint(jumps[Random.Range(1, 2)], transform.position, 0.5f);
+                jumped = false;
+            }
+        }
+        
+        
+    }
     private void OnCollisionExit(Collision collision) {
 
         grounded = false;
