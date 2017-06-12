@@ -2,8 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class MenuCamera : MonoBehaviour {
+
+    public int firstLevel;
+    [SerializeField]private LoadSceneMode loadMode;
 
     public Image image;
     public Material walls;
@@ -13,10 +17,6 @@ public class MenuCamera : MonoBehaviour {
 
     public float Xrot;
     public float Yrot;
-
-	// Use this for initialization
-	void Start () {
-    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -41,4 +41,12 @@ public class MenuCamera : MonoBehaviour {
 
         transform.Rotate(new Vector3(Yrot * Time.deltaTime, Xrot * Time.deltaTime, 0));
 	}
+
+    public void Quit () {
+        Application.Quit();
+    }
+
+    public void StartGame() {
+        SceneManager.LoadScene(firstLevel, loadMode);
+    }
 }

@@ -15,6 +15,7 @@ public class TeleportationV2 : MonoBehaviour {
 //    Transform portal1, portal2;
 	Camera playerCam;
     public float minY = 4f;
+	public Vector3 exitVelocity;
 
     [Header("Velocity Values")]
     public Vector3 velocity;
@@ -107,7 +108,7 @@ public class TeleportationV2 : MonoBehaviour {
         Vector3 inPortal1Coords = portal1.InverseTransformVector(rb.velocity);
         inPortal1Coords.z *= -1;
         inPortal1Coords.x *= -1;
-        Vector3 exitVelocity = portal2.TransformVector(inPortal1Coords);
+        exitVelocity = portal2.TransformVector(inPortal1Coords);
 
         // Muutetaan nykyinen positio entrance portaalin locaaliin avaruuteen(inverseTransformPoint)
         // localspacepoint muutetaan worldspacepoint exit portaalin kautta(transformPoint)

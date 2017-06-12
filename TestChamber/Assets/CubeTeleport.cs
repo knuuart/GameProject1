@@ -17,7 +17,7 @@ public class CubeTeleport : MonoBehaviour {
     Camera playerCam;
     public float minY = 4f;
     Transform targetTransform;
-    public Vector3 startPosition, targetPosition;
+    public Vector3 startPosition, targetPosition, exitVelocity;
     bool colliding;
     public float moveForce;
 
@@ -123,7 +123,7 @@ public class CubeTeleport : MonoBehaviour {
         Vector3 inPortal1Coords = portal1.InverseTransformVector(rb.velocity);
         inPortal1Coords.z *= -1;
         inPortal1Coords.x *= -1;
-        Vector3 exitVelocity = portal2.TransformVector(inPortal1Coords);
+        exitVelocity = portal2.TransformVector(inPortal1Coords);
 
         // Muutetaan nykyinen positio entrance portaalin locaaliin avaruuteen(inverseTransformPoint)
         // localspacepoint muutetaan worldspacepoint exit portaalin kautta(transformPoint)
