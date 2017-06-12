@@ -27,7 +27,12 @@ public class CarryObject : MonoBehaviour {
         carriedObject.GetComponent<Rigidbody>().useGravity = true;
         carriedObject.GetComponent<Rigidbody>().freezeRotation = false;
         Physics.IgnoreCollision(GetComponent<Collider>(), carriedObject.GetComponent<Collider>(), false);
-        carriedObject.GetComponent<Rigidbody>().velocity = GetComponent<Rigidbody>().velocity;
+		if (Vector3.Distance (carriedObject.transform.position, targetTransform.position) > 0.5f) {
+			Vector3 newVelocity = GetComponent<TeleportationV2> ().exitVelocity;
+			carriedObject.GetComponent<Rigidbody> ().velocity = newVelocity;
+		} else {
+			carriedObject.GetComponent<Rigidbody>().velocity = GetComponent<Rigidbody>().velocity;		
+		}
 
         carriedObject.GetComponent<Rigidbody>().AddForce(Camera.main.transform.forward * throwForce, ForceMode.Impulse);
 
@@ -88,7 +93,11 @@ public class CarryObject : MonoBehaviour {
                 carriedObject.GetComponent<Rigidbody>().useGravity = true;
                 carriedObject.GetComponent<Rigidbody>().freezeRotation = false;
                 Physics.IgnoreCollision(GetComponent<Collider>(), carriedObject.GetComponent<Collider>(), false);
-                carriedObject.GetComponent<Rigidbody>().velocity = GetComponent<Rigidbody>().velocity;
+				if (Vector3.Distance (carriedObject.transform.position, targetTransform.position) > 0.5f) {
+					carriedObject.GetComponent<Rigidbody> ().velocity = GetComponent<TeleportationV2>().exitVelocity;
+				} else {
+					carriedObject.GetComponent<Rigidbody>().velocity = GetComponent<Rigidbody>().velocity;		
+				}
 
                 carrying = false;
             }
