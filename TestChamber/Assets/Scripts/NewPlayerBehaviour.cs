@@ -144,4 +144,8 @@ public class NewPlayerBehaviour : MonoBehaviour {
             mouseSensitivityY *= -1;
 
     }
+
+	public void PlaySoundOnFrame(){
+		
+	}
 }

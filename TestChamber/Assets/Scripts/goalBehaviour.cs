@@ -12,9 +12,14 @@ public class goalBehaviour : MonoBehaviour {
 
 	void OnTriggerEnter(Collider coll) {
         if (coll.tag == "Player") {
-            Victory();
+			StartCoroutine (LoadNextScene ());
         }
     }
+	IEnumerator LoadNextScene(){
+		// FADE HERE
+		yield return new WaitForSeconds(1f);
+		Victory ();
+	}
 
     void Victory() {
         SceneManager.LoadScene(nextLevelInt, loadMode);
