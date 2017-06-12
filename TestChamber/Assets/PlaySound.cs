@@ -15,7 +15,7 @@ public class PlaySound : MonoBehaviour {
 		
 	}
 	public void PlaySoundOnFrame(){
-		Vector3 soundPos = transform.position - new Vector3 (0, -1, 0);
+		Vector3 soundPos = transform.position;
 		AudioSource.PlayClipAtPoint (stepSounds [Random.Range (0, stepSounds.Length)], soundPos, 0.15f);
 	}
 }

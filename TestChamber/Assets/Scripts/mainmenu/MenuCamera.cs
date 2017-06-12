@@ -18,9 +18,11 @@ public class MenuCamera : MonoBehaviour {
     public float Xrot;
     public float Yrot;
 	
-	// Update is called once per frame
+	void Start(){
+	}
 	void Update () {
-
+		Cursor.lockState = CursorLockMode.None;
+		Cursor.visible = true;
         //wall sliding
 
         var ass = walls.mainTextureOffset;

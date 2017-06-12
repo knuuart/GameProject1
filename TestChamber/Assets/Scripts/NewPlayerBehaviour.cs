@@ -43,11 +43,7 @@ public class NewPlayerBehaviour : MonoBehaviour {
         } else { mouseSensitivityY = mouseSensitivity * -1; }
         
 
-		if (Input.GetAxis ("Vertical") != 0 || Input.GetAxis("Horizontal") != 0 && grounded == true) {
-			anim.SetBool ("Juoksee", true);
-		} else {
-			anim.SetBool ("Juoksee", false);
-		}
+		 
 
 
         //Uprighting the camera
@@ -104,6 +100,16 @@ public class NewPlayerBehaviour : MonoBehaviour {
             } else {
                 movePower = airPower;
             }
+			if (grounded) {
+				if (MoveX != 0 || MoveZ != 0) {
+					anim.SetBool ("Juoksee", true);
+				} else {
+					anim.SetBool ("Juoksee", false);
+				}
+			} else {
+				anim.SetBool ("Juoksee", false);
+			}
+
 
             //Movement
             var XZForward = Vector3.ProjectOnPlane(cam.transform.forward, Vector3.up);

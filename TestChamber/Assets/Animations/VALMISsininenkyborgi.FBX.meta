@@ -266,7 +266,7 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.84866464
+      - time: 0.81587774
         functionName: PlaySoundOnFrame
         data: 
         objectReferenceParameter: {instanceID: 0}
