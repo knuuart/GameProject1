@@ -8,6 +8,7 @@ public class ScaffoldPatrol : MonoBehaviour {
 	public float tolerance = 0.1f;
 	public int targetIndex = 0;
 	public BallSpawner bs;
+    public AudioSource rumble;
     Rigidbody rb;
 	// Use this for initialization
 	void Start () {
@@ -44,6 +45,7 @@ public class ScaffoldPatrol : MonoBehaviour {
 	}
 	public void StartPatrol (){
 		StartCoroutine(MoveScaffold());
+        rumble.Play();
 	}
 
 	void OnCollisionStay(Collision c){
