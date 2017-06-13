@@ -12,6 +12,9 @@ public class EnergyBall : MonoBehaviour {
     float duration = 4f, t = 0;
     Color lerpedColor;
     bool flag;
+    public Material ballMat;
+    public float tScrollSpeed;
+    public ParticleSystem ballTrail;
 
 	// Use this for initialization
 	void Start () {
@@ -32,6 +35,12 @@ public class EnergyBall : MonoBehaviour {
         }
         lerpedColor = Color.Lerp(green, pink, t);
         rend.material.color = lerpedColor;
+        
+
+        var tOffset = rend.material.mainTextureOffset;
+        rend.material.mainTextureOffset = new Vector2(tOffset.x - tScrollSpeed * Time.deltaTime, 
+                                                      tOffset.y - tScrollSpeed * Time.deltaTime);
+
         if (flag) {
             t -= Time.deltaTime / duration;
             if(t < 0.1f) {
@@ -43,6 +52,11 @@ public class EnergyBall : MonoBehaviour {
                 flag = true;
             }
         }
+
+        var boffset = ballMat.mainTextureOffset;
+        boffset.x = tScrollSpeed * Time.deltaTime;
+        ballMat.mainTextureOffset = boffset;
+
     }
     public void DestroyBall() {
         Destroy(gameObject);
