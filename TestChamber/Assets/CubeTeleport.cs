@@ -50,6 +50,7 @@ public class CubeTeleport : MonoBehaviour {
         startPosition = Camera.main.transform.InverseTransformPoint(targetTransform.position);
         bluePortal = GameObject.FindGameObjectWithTag("BluePortal");
         orangePortal = GameObject.FindGameObjectWithTag("OrangePortal");
+        print(startPosition);
     }
     private void OnTriggerExit(Collider other) {
         if (sp.behindBlue != null && sp.behindOrange != null) {
@@ -92,7 +93,7 @@ public class CubeTeleport : MonoBehaviour {
             if (colliding) {
                 moveForce = 15f;
             } else {
-                moveForce = 40f;
+                moveForce = 150f;
             }
         }
         

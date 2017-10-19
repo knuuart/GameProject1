@@ -56,7 +56,7 @@ public class ScaffoldPatrol : MonoBehaviour {
             Vector3 waypointOffset = waypoints[targetIndex].position - offset;
             Vector3 alustaOffset = transform.position - offset;
             //go.transform.position = Vector3.MoveTowards(go.transform.position, waypointOffset, Time.deltaTime * speed);
-			go.GetComponent<Rigidbody>().MovePosition(Vector3.MoveTowards(go.transform.position, alustaOffset, Time.deltaTime * speed));
+            go.GetComponent<Rigidbody>().MovePosition(Vector3.MoveTowards(go.transform.position, alustaOffset, Time.deltaTime * speed));
         }
     }
 }

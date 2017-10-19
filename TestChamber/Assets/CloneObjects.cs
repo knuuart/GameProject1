@@ -14,25 +14,30 @@ public class CloneObjects : MonoBehaviour {
 			if (clonedObject == null) {
 				Vector3 newPos = CheckPosition (portal1, portal2, other.gameObject);
 				clonedObject = Instantiate (cube, newPos, portal2.transform.rotation * newRotation);
+                Physics.IgnoreCollision(other, clonedObject.GetComponent<Collider>());
 			}
 		}
 
 	}
 	void OnTriggerStay(Collider other){
-		Matrix4x4 targetFlipRotation = Matrix4x4.TRS(Vector3.zero, Quaternion.AngleAxis(180.0f, Vector3.up), Vector3.one);
-		Matrix4x4 inversionMatrix = targetFlipRotation * portal1.transform.worldToLocalMatrix;
-		Quaternion newRotation = Portal.QuaternionFromMatrix(inversionMatrix) * other.transform.rotation;
-		if (clonedObject != null) {
-			clonedObject.transform.position = CheckPosition (portal1, portal2, other.gameObject);
-			clonedObject.transform.rotation = portal2.transform.rotation * newRotation;
-
-		}
+        if (other.tag == "PickupAble") {
+            Matrix4x4 targetFlipRotation = Matrix4x4.TRS(Vector3.zero, Quaternion.AngleAxis(180.0f, Vector3.up), Vector3.one);
+            Matrix4x4 inversionMatrix = targetFlipRotation * portal1.transform.worldToLocalMatrix;
+            Quaternion newRotation = Portal.QuaternionFromMatrix(inversionMatrix) * other.transform.rotation;
+            if (clonedObject != null) {
+                clonedObject.transform.position = CheckPosition(portal1, portal2, other.gameObject);
+                clonedObject.transform.rotation = portal2.transform.rotation * newRotation;
+            }
+        }
 	}
 
 	void OnTriggerExit(Collider other){
-		if (clonedObject != null) {
-			Destroy (clonedObject);
-		}
+        if (other.tag == "PickupAble") {
+            if (clonedObject != null) {
+                Destroy(clonedObject);
+            }
+        }
+            
 	}
 	Vector3 CheckPosition(GameObject portal1, GameObject portal2, GameObject other) {
 		Vector3 local = portal1.transform.InverseTransformPoint(other.transform.position);

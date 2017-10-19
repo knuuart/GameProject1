@@ -22,26 +22,31 @@ public class CarryObject : MonoBehaviour {
         //orangePortal = GameObject.FindGameObjectWithTag("OrangePortal");
     }
 
-    IEnumerator ThrowObject() {
-        yield return new WaitForSeconds(0.001f);
-        carriedObject.GetComponent<Rigidbody>().useGravity = true;
-        carriedObject.GetComponent<Rigidbody>().freezeRotation = false;
-        Physics.IgnoreCollision(GetComponent<Collider>(), carriedObject.GetComponent<Collider>(), false);
-		if (Vector3.Distance (carriedObject.transform.position, targetTransform.position) > 0.5f) {
-			Vector3 newVelocity = GetComponent<TeleportationV2> ().exitVelocity;
-			carriedObject.GetComponent<Rigidbody> ().velocity = newVelocity;
-		} else {
-			carriedObject.GetComponent<Rigidbody>().velocity = GetComponent<Rigidbody>().velocity;		
-		}
+  //  IEnumerator ThrowObject() {
+  //      yield return new WaitForSeconds(0.001f);
+  //      carriedObject.GetComponent<Rigidbody>().useGravity = true;
+  //      carriedObject.GetComponent<Rigidbody>().freezeRotation = false;
+  //      carriedObject.GetComponent<Rigidbody>().AddForce(Camera.main.transform.forward * throwForce, ForceMode.Impulse);
+  //      Physics.IgnoreCollision(GetComponent<Collider>(), carriedObject.GetComponent<Collider>(), false);
+		//if (Vector3.Distance (carriedObject.transform.position, targetTransform.position) > 0.5f) {
+		//	Vector3 newVelocity = carriedObject.GetComponent<CubeTeleport>().exitVelocity2;
+		//	carriedObject.GetComponent<Rigidbody> ().velocity = newVelocity;
+		//} else {
+		//	carriedObject.GetComponent<Rigidbody>().velocity = GetComponent<Rigidbody>().velocity;		
+		//}
 
-        carriedObject.GetComponent<Rigidbody>().AddForce(Camera.main.transform.forward * throwForce, ForceMode.Impulse);
 
-        carrying = false;
-    }
+        //carrying = false;
+    //}
     public void DropCube() {
         carriedObject.GetComponent<Rigidbody>().useGravity = true;
         carriedObject.GetComponent<Rigidbody>().freezeRotation = false;
         Physics.IgnoreCollision(GetComponent<Collider>(), carriedObject.GetComponent<Collider>(), false);
+        if (Vector3.Distance(carriedObject.transform.position, targetTransform.position) > 0.5f) {
+            carriedObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        } else {
+            carriedObject.GetComponent<Rigidbody>().velocity = GetComponent<Rigidbody>().velocity;
+        }
         carrying = false;
     }
 
@@ -90,16 +95,7 @@ public class CarryObject : MonoBehaviour {
 
                 } 
             } else {
-                carriedObject.GetComponent<Rigidbody>().useGravity = true;
-                carriedObject.GetComponent<Rigidbody>().freezeRotation = false;
-                Physics.IgnoreCollision(GetComponent<Collider>(), carriedObject.GetComponent<Collider>(), false);
-				if (Vector3.Distance (carriedObject.transform.position, targetTransform.position) > 0.5f) {
-					carriedObject.GetComponent<Rigidbody> ().velocity = GetComponent<TeleportationV2>().exitVelocity;
-				} else {
-					carriedObject.GetComponent<Rigidbody>().velocity = GetComponent<Rigidbody>().velocity;		
-				}
-
-                carrying = false;
+                DropCube();
             }
         }
         if (carrying) {
@@ -114,7 +110,8 @@ public class CarryObject : MonoBehaviour {
             carriedObject.GetComponent<Rigidbody>().useGravity = false;
             Physics.IgnoreCollision(GetComponent<Collider>(), carriedObject.GetComponent<Collider>());
             if (Input.GetMouseButtonDown(0)) { //|| Vector3.Distance(transform.position, carriedObject.transform.position) > maxDistance) {
-                StartCoroutine(ThrowObject());
+                //StartCoroutine(ThrowObject());
+                DropCube();
             }
         }
     }
